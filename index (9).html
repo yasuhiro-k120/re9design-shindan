@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>伝わるデザイン無料診断</title>
+<meta name="description" content="起業したての方・介護や看護の事業所・個人事業主の方へ。12の質問で、ロゴ・名刺・チラシ・ホームページの「伝わる力」を無料で診断します。">
+<style>
+  :root {
+    --bg: #f7f6f2; --card: #ffffff; --ink: #222; --sub: #666; --line: #e3e0d8;
+    --accent: #2f6f62; --accent-soft: #e6f1ee; --good: #2b8a3e; --mid: #d99a00; --bad: #c8553d;
+    --line-green: #06c755;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Hiragino Sans", "Noto Sans JP", "Yu Gothic", sans-serif; line-height: 1.7; }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 24px 16px 64px; }
+  .badge { display: inline-block; font-size: 12px; color: var(--accent); background: var(--accent-soft);
+    padding: 2px 10px; border-radius: 99px; font-weight: 700; }
+  h1 { font-size: 24px; line-height: 1.4; margin: 12px 0 8px; }
+  h2 { font-size: 18px; margin: 0 0 12px; }
+  p.lead { color: var(--sub); margin: 0 0 20px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+  .btn { display: block; width: 100%; border: 0; border-radius: 10px; padding: 14px; font-size: 16px; font-weight: 700;
+    background: var(--accent); color: #fff; cursor: pointer; text-align: center; text-decoration: none; }
+  .btn.line { background: var(--line-green); }
+  .btn.ghost { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
+  .btn:disabled { opacity: .4; cursor: default; }
+  .btn + .btn { margin-top: 10px; }
+  .hidden { display: none; }
+  .progress { height: 6px; background: var(--line); border-radius: 99px; overflow: hidden; margin-bottom: 8px; }
+  .progress > div { height: 100%; background: var(--accent); width: 0; transition: width .3s; }
+  .step { font-size: 13px; color: var(--sub); margin-bottom: 16px; }
+  .axis { font-size: 13px; color: var(--accent); font-weight: 700; }
+  .q { font-size: 18px; font-weight: 700; margin: 4px 0 20px; }
+  .choices { display: grid; gap: 10px; }
+  .choice { border: 2px solid var(--line); background: var(--card); border-radius: 10px; padding: 14px; font-size: 16px;
+    text-align: left; cursor: pointer; color: var(--ink); font-family: inherit; }
+  .choice:hover { border-color: var(--accent); }
+  .back { background: none; border: 0; color: var(--sub); margin-top: 16px; cursor: pointer; font-size: 14px; }
+  select, input, textarea { width: 100%; font-size: 16px; padding: 10px; border: 1px solid var(--line); border-radius: 8px;
+    margin: 4px 0 14px; font-family: inherit; background: #fff; color: var(--ink); }
+  label { font-size: 14px; font-weight: 700; }
+  .opt { font-weight: 400; color: var(--sub); font-size: 12px; }
+  .checks { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; margin: 6px 0 14px; }
+  .checks label { font-weight: 400; display: flex; gap: 6px; align-items: center; }
+  .checks input { width: auto; margin: 0; }
+  .score { text-align: center; }
+  .score .num { font-size: 56px; font-weight: 800; color: var(--accent); line-height: 1.1; }
+  .score .type { font-size: 20px; font-weight: 700; margin-top: 4px; }
+  .bar-row { margin: 10px 0; }
+  .bar-row .head { display: flex; justify-content: space-between; font-size: 14px; }
+  .bar { height: 10px; background: var(--line); border-radius: 99px; overflow: hidden; }
+  .bar > div { height: 100%; border-radius: 99px; }
+  .advice li { margin-bottom: 8px; }
+  .note { font-size: 12px; color: var(--sub); }
+  .err { color: var(--bad); font-size: 14px; margin: 0 0 10px; }
+  .locked { position: relative; }
+  .locked .blur { filter: blur(5px); user-select: none; pointer-events: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- スタート画面 -->
+  <section id="start">
+    <span class="badge">無料・約2分・登録不要で開始</span>
+    <h1>あなたの事業の「伝わるデザイン」診断</h1>
+    <p class="lead">ロゴ・名刺・チラシ・ホームページ。お客様や利用者に、あなたの良さはちゃんと伝わっていますか？12の質問で、強いところと直すと効果が出やすいところが分かります。</p>
+    <div class="card">
+      <label for="bizType">あなたの事業に近いものを選んでください</label>
+      <select id="bizType">
+        <option value="">選んでください</option>
+        <option value="startup">起業したて・起業準備中</option>
+        <option value="care">介護・看護・福祉の事業所</option>
+        <option value="solo">その他の個人事業主・小さなお店</option>
+      </select>
+      <button class="btn" id="startBtn" disabled>診断をはじめる</button>
+    </div>
+    <p class="note">こんな方に：開業してしばらく経つのに問い合わせが少ない／チラシやHPを自分で作ったけど自信がない／職員の採用に苦労している</p>
+  </section>
+
+  <!-- 質問画面 -->
+  <section id="quiz" class="hidden">
+    <div class="progress"><div id="prog"></div></div>
+    <div class="step" id="stepText"></div>
+    <div class="card">
+      <div class="axis" id="axisText"></div>
+      <div class="q" id="qText"></div>
+      <div class="choices">
+        <button class="choice" data-v="2">はい</button>
+        <button class="choice" data-v="1">少しできている</button>
+        <button class="choice" data-v="0">いいえ・分からない</button>
+      </div>
+    </div>
+    <button class="back" id="backBtn">← 前の質問にもどる</button>
+  </section>
+
+  <!-- 結果画面 -->
+  <section id="result" class="hidden">
+    <div class="card score">
+      <div class="note">あなたの「伝わるデザイン」点数</div>
+      <div class="num" id="totalNum"></div>
+      <div class="type" id="typeText"></div>
+      <p id="descText" style="text-align:left"></p>
+    </div>
+    <div class="card">
+      <h2>4つの分野の点数</h2>
+      <div id="bars"></div>
+    </div>
+
+    <!-- 登録前：アドバイスはぼかして見せる -->
+    <div id="gate">
+      <div class="card locked">
+        <h2>あなたが最初に直すべきところ</h2>
+        <div class="blur"><ul class="advice"><li>ここに分野ごとの具体的な改善ポイントが表示されます</li><li>あなたの業種に合わせたアドバイスです</li><li>今日からできることも入っています</li></ul></div>
+      </div>
+      <div class="card">
+        <h2>改善ポイントを見る（無料）</h2>
+        <p class="note">メールアドレスを入れると、この画面に改善ポイントが表示され、同じ内容をメールでもお送りします。売り込みの電話はしません。</p>
+        <form id="leadForm" novalidate>
+          <label for="fName">お名前</label>
+          <input id="fName" autocomplete="name" required>
+          <label for="fShop">屋号・事業所名 <span class="opt">（任意）</span></label>
+          <input id="fShop" autocomplete="organization">
+          <label for="fEmail">メールアドレス</label>
+          <input id="fEmail" type="email" autocomplete="email" required>
+          <label>気になっていること <span class="opt">（いくつでも・任意）</span></label>
+          <div class="checks" id="fWants">
+            <label><input type="checkbox" value="ロゴ">ロゴ</label>
+            <label><input type="checkbox" value="名刺">名刺</label>
+            <label><input type="checkbox" value="チラシ">チラシ</label>
+            <label><input type="checkbox" value="パンフレット">パンフレット</label>
+            <label><input type="checkbox" value="ホームページ">ホームページ</label>
+            <label><input type="checkbox" value="採用ページ・求人">採用・求人</label>
+            <label><input type="checkbox" value="看板・のぼり">看板・のぼり</label>
+            <label><input type="checkbox" value="SNS画像">SNS画像</label>
+          </div>
+          <label for="fWhen">時期のめやす <span class="opt">（任意）</span></label>
+          <select id="fWhen">
+            <option value="">選んでください</option>
+            <option>すぐにでも</option>
+            <option>3か月以内</option>
+            <option>半年以内</option>
+            <option>まだ情報集め</option>
+          </select>
+          <label><input type="checkbox" id="fAgree" style="width:auto;margin:0 6px 0 0">役立つ情報のメール（4通程度・いつでも停止できます）を受け取ることに同意します</label>
+          <p class="err hidden" id="formErr"></p>
+          <button class="btn" type="submit" id="submitBtn" style="margin-top:12px">改善ポイントを見る</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- 登録後 -->
+    <div id="unlocked" class="hidden">
+      <div class="card">
+        <h2>あなたが最初に直すべきところ</h2>
+        <div id="adviceBox"></div>
+      </div>
+      <div class="card">
+        <h2>プロに相談してみませんか？</h2>
+        <p>この診断結果をもとに、何から・どのくらいの予算で直すと効果的かを、30分の無料相談でお伝えします（オンライン可）。</p>
+        <a class="btn" id="bookBtn" target="_blank" rel="noopener">無料相談を予約する</a>
+        <a class="btn line" id="lineBtn" target="_blank" rel="noopener">LINEで気軽に質問する</a>
+        <p class="note">結果はメールでもお送りしました。届かない場合は迷惑メールフォルダをご確認ください。</p>
+      </div>
+    </div>
+    <button class="btn ghost" id="retryBtn">もう一度診断する</button>
+  </section>
+
+</div>
+
+<script>
+// ===== 設定（README の手順で作ったURLを入れてください） =====
+const CONFIG = {
+  GAS_URL: "https://script.google.com/macros/s/AKfycbxmMDrvNUz6VdKz-87bjQxhGz2pEB6tXgpKGvN2_kNYZgL1ZV0JttIQYnyToCe6AfzZ/exec",       // Google Apps Script のウェブアプリURL
+  BOOKING_URL: "https://calendar.app.google/5GGzWbyTgjWhYnPz6",   // Googleカレンダーの予約ページURL
+  LINE_URL: "https://lin.ee/PcSNxLP"       // LINE公式アカウントの友だち追加URL
+};
+
+const AXES = {
+  first: { name: "第一印象", tip: "ひと目で何の事業か分かるか" },
+  find:  { name: "見つけてもらう力", tip: "探している人に届いているか" },
+  trust: { name: "安心・信頼", tip: "選ぶ理由を見せられているか" },
+  reach: { name: "届ける力", tip: "相手に合わせて渡せているか" }
+};
+
+const QUESTIONS = [
+  { axis: "first", q: "ロゴ・名刺・看板などが、同じ色や雰囲気でそろっている" },
+  { axis: "first", q: "名刺やチラシを渡したとき、何の事業かひと目で分かる" },
+  { axis: "first", q: "使う色や書体が決まっていて、作るたびにバラバラにならない" },
+  { axis: "find",  q: "スマホで見やすいホームページがある" },
+  { axis: "find",  q: "Googleマップに、写真・営業時間・事業の説明を載せている" },
+  { axis: "find",  q: "「地域名＋サービス名」で検索すると、自分の事業が出てくる" },
+  { axis: "trust", q: "代表者やスタッフの顔写真と、仕事への想いを載せている" },
+  { axis: "trust", q: "お客様・利用者の声や、これまでの事例を載せている" },
+  { axis: "trust", q: "料金や、申し込みから利用までの流れが分かりやすく書いてある" },
+  { axis: "reach", q: "チラシやパンフレットを、渡す相手に合わせて作り分けている" },
+  { axis: "reach", q: "SNSやブログで、月に1回以上発信している" },
+  { axis: "reach", q: "問い合わせ・申し込みの方法が、迷わない1つの流れになっている" }
+];
+
+const ADVICE = {
+  first: [
+    "まず「メインの色1つ・書体1つ」を決め、名刺・チラシ・SNSをそろえる",
+    "名刺の表に「誰の・何をする事業か」を一行で入れる",
+    "ロゴがない場合は、看板や名刺より先にロゴを作ると、後の制作物がすべて楽になる"
+  ],
+  find: [
+    "Googleビジネスプロフィールに写真を10枚以上と、事業の説明文を載せる（無料）",
+    "ホームページの1ページ目のタイトルに「地域名＋サービス名」を入れる",
+    "ホームページはスマホで開いて、電話・問い合わせボタンがすぐ押せるか確かめる"
+  ],
+  trust: [
+    "代表者の顔写真と「なぜこの仕事を始めたか」を3行で載せる",
+    "お客様の声を「どんな人が・どう変わったか」の形で3件集める",
+    "料金の目安と「問い合わせ→相談→利用開始」の流れを図で見せる"
+  ],
+  reach: [
+    "渡す相手ごとに、伝えることを1つに絞ったチラシを用意する",
+    "SNSは毎月決まった日に1回、仕事の様子を写真つきで出すことから始める",
+    "問い合わせ方法を「電話」か「LINE」など1〜2つに絞り、全制作物で同じにする"
+  ]
+};
+
+// 業種ごとに足すアドバイス
+const TYPE_ADVICE = {
+  startup: { label: "起業したての方へ", text: "最初から全部を作る必要はありません。ロゴ → 名刺 → Googleマップ → ホームページの順にそろえると、少ない予算でも「ちゃんとした事業」に見えます。" },
+  care:    { label: "介護・看護の事業所の方へ", text: "利用者のご家族向けと、ケアマネジャーなど紹介してくれる専門職向けでは、知りたいことが違います。パンフレットを2種類に分けるだけで、紹介が増えやすくなります。採用に悩んでいる場合は、職員の声と1日の流れを載せた採用ページが効果的です。" },
+  solo:    { label: "個人事業主・お店の方へ", text: "大きな会社と同じ土俵で戦う必要はありません。「あなたにお願いする理由」が伝わる顔写真・想い・お客様の声が、いちばんの武器になります。" }
+};
+
+let bizType = "", answers = [], idx = 0, result = null;
+const $ = id => document.getElementById(id);
+
+function track(name, params) {
+  // GA4を入れたら、ここで診断の利用数・完了数・登録数を計測できる
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event: name, ...params });
+}
+
+function show(id) {
+  ["start", "quiz", "result"].forEach(s => $(s).classList.toggle("hidden", s !== id));
+  window.scrollTo(0, 0);
+}
+
+function renderQ() {
+  const item = QUESTIONS[idx];
+  $("prog").style.width = (idx / QUESTIONS.length * 100) + "%";
+  $("stepText").textContent = `質問 ${idx + 1} / ${QUESTIONS.length}`;
+  $("axisText").textContent = AXES[item.axis].name;
+  $("qText").textContent = item.q;
+  $("backBtn").style.visibility = idx === 0 ? "hidden" : "visible";
+}
+
+function calc() {
+  const axes = {};
+  Object.keys(AXES).forEach(k => axes[k] = { got: 0, max: 0 });
+  QUESTIONS.forEach((item, i) => { axes[item.axis].got += answers[i]; axes[item.axis].max += 2; });
+  const total = Math.round(answers.reduce((a, b) => a + b, 0) / (QUESTIONS.length * 2) * 100);
+  const pct = {};
+  Object.keys(axes).forEach(k => pct[k] = Math.round(axes[k].got / axes[k].max * 100));
+  // 点数の低い順に2分野を「直すと効果が出やすいところ」とする
+  const weak = Object.keys(pct).sort((a, b) => pct[a] - pct[b]).slice(0, 2);
+
+  let type, desc;
+  if (total >= 80) { type = "しっかり伝わっている事業"; desc = "土台はできています。弱い分野を1つ磨くことで、問い合わせの質がさらに上がります。"; }
+  else if (total >= 50) { type = "あと一歩で選ばれる事業"; desc = "良いところと弱いところがはっきりしています。弱いところを1つ直すだけで、結果が変わりやすい段階です。"; }
+  else { type = "伸びしろが大きい事業"; desc = "あなたの事業の良さが、まだ相手に届いていない可能性があります。直す順番を決めれば、少ない予算でも効果が出やすい状態です。"; }
+  return { total, pct, weak, type, desc };
+}
+
+function renderResult() {
+  result = calc();
+  $("totalNum").textContent = result.total + "点";
+  $("typeText").textContent = result.type;
+  $("descText").textContent = result.desc;
+  $("bars").innerHTML = Object.keys(AXES).map(k => {
+    const p = result.pct[k];
+    const color = p >= 70 ? "var(--good)" : p >= 40 ? "var(--mid)" : "var(--bad)";
+    return `<div class="bar-row"><div class="head"><span>${AXES[k].name}<span class="note">　${AXES[k].tip}</span></span><b>${p}点</b></div>
+      <div class="bar"><div style="width:${p}%;background:${color}"></div></div></div>`;
+  }).join("");
+  $("gate").classList.remove("hidden");
+  $("unlocked").classList.add("hidden");
+  show("result");
+  track("diagnosis_complete", { biz_type: bizType, score: result.total });
+}
+
+function renderAdvice() {
+  const ta = TYPE_ADVICE[bizType];
+  $("adviceBox").innerHTML = result.weak.map(k =>
+    `<h3 style="font-size:16px;margin:8px 0 4px">${AXES[k].name}（${result.pct[k]}点）</h3>
+     <ul class="advice">${ADVICE[k].map(a => `<li>${a}</li>`).join("")}</ul>`
+  ).join("") + `<p><b>${ta.label}</b><br>${ta.text}</p>`;
+  $("bookBtn").href = CONFIG.BOOKING_URL || "#";
+  $("lineBtn").href = CONFIG.LINE_URL || "#";
+  $("bookBtn").classList.toggle("hidden", !CONFIG.BOOKING_URL);
+  $("lineBtn").classList.toggle("hidden", !CONFIG.LINE_URL);
+}
+
+$("bizType").addEventListener("change", e => { bizType = e.target.value; $("startBtn").disabled = !bizType; });
+$("startBtn").addEventListener("click", () => {
+  answers = []; idx = 0; renderQ(); show("quiz");
+  track("diagnosis_start", { biz_type: bizType });
+});
+document.querySelectorAll(".choice").forEach(b => b.addEventListener("click", () => {
+  answers[idx] = Number(b.dataset.v);
+  idx++;
+  if (idx < QUESTIONS.length) renderQ(); else renderResult();
+}));
+$("backBtn").addEventListener("click", () => { if (idx > 0) { idx--; renderQ(); } });
+$("retryBtn").addEventListener("click", () => show("start"));
+
+$("leadForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const name = $("fName").value.trim(), email = $("fEmail").value.trim();
+  const err = msg => { $("formErr").textContent = msg; $("formErr").classList.remove("hidden"); };
+  if (!name) return err("お名前を入れてください");
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return err("メールアドレスを確かめてください");
+  if (!$("fAgree").checked) return err("メール受け取りへの同意にチェックを入れてください");
+  $("formErr").classList.add("hidden");
+  $("submitBtn").disabled = true;
+  $("submitBtn").textContent = "送信中…";
+
+  const payload = {
+    name, email,
+    shop: $("fShop").value.trim(),
+    bizType: $("bizType").selectedOptions[0].textContent,
+    bizKey: bizType,
+    wants: [...document.querySelectorAll("#fWants input:checked")].map(c => c.value).join("、"),
+    when: $("fWhen").value,
+    score: result.total,
+    pct: result.pct,
+    weak: result.weak.map(k => AXES[k].name).join("、"),
+    weakKeys: result.weak
+  };
+
+  try {
+    if (CONFIG.GAS_URL) {
+      // text/plain で送ると、Apps Script 側で事前確認（CORS）が起きない
+      await fetch(CONFIG.GAS_URL, { method: "POST", mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) });
+    }
+  } catch (_) { /* 送信に失敗しても結果は見せる */ }
+
+  track("lead_submit", { biz_type: bizType, score: result.total });
+  renderAdvice();
+  $("gate").classList.add("hidden");
+  $("unlocked").classList.remove("hidden");
+  $("submitBtn").disabled = false;
+  $("submitBtn").textContent = "改善ポイントを見る";
+});
+</script>
+</body>
+</html>
