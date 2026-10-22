@@ -56,6 +56,14 @@
   .note { font-size: 12px; color: var(--sub); }
   .err { color: var(--bad); font-size: 14px; margin: 0 0 10px; }
   .locked { position: relative; }
+  .brand { font-size: 13px; color: var(--sub); margin: 0 0 6px; }
+  .brand b { color: var(--ink); }
+  .profile h2 { margin-bottom: 4px; }
+  .profile .who { font-size: 13px; color: var(--sub); margin: 0 0 10px; }
+  .profile p { margin: 0 0 8px; font-size: 15px; }
+  .profile p:last-child { margin-bottom: 0; }
+  footer { text-align: center; font-size: 12px; color: var(--sub); margin-top: 32px; }
+  footer p { margin: 2px 0; }
   .locked .blur { filter: blur(5px); user-select: none; pointer-events: none; }
 </style>
 </head>
@@ -64,6 +72,7 @@
 
   <!-- スタート画面 -->
   <section id="start">
+    <p class="brand"><b>Re9design</b>（神奈川県伊勢原市）の無料診断</p>
     <span class="badge">無料・約2分・登録不要で開始</span>
     <h1>あなたの事業の「伝わるデザイン」診断</h1>
     <p class="lead">ロゴ・名刺・チラシ・ホームページ。お客様や利用者に、あなたの良さはちゃんと伝わっていますか？12の質問で、強いところと直すと効果が出やすいところが分かります。</p>
@@ -78,6 +87,13 @@
       <button class="btn" id="startBtn" disabled>診断をはじめる</button>
     </div>
     <p class="note">こんな方に：開業してしばらく経つのに問い合わせが少ない／チラシやHPを自分で作ったけど自信がない／職員の採用に苦労している</p>
+    <div class="card profile">
+      <h2>この診断をつくった人</h2>
+      <p class="who">Re9design　川添 康大（かわそえ やすひろ）／神奈川県伊勢原市</p>
+      <p>ロゴ・名刺・チラシ・パンフレットからホームページまで、ひとりで最初から最後まで担当しているデザイナーです。</p>
+      <p>もとは理学療法士として、医療・介護の現場で働いていました。介護・看護の事業所が、利用者さんやご家族、これから働く人に何を伝えたいのかを、現場のことばで一緒に整理できるのが強みです。</p>
+      <p>起業したばかりの方や小さなお店の「何から手をつければいいか分からない」にも、予算に合わせてお応えします。</p>
+    </div>
   </section>
 
   <!-- 質問画面 -->
@@ -159,7 +175,7 @@
       </div>
       <div class="card">
         <h2>プロに相談してみませんか？</h2>
-        <p>この診断結果をもとに、何から・どのくらいの予算で直すと効果的かを、30分の無料相談でお伝えします（オンライン可）。</p>
+        <p>この診断結果をもとに、何から・どのくらいの予算で直すと効果的かを、30分の無料相談でお伝えします（オンライン可）。相談では、Re9design の川添が直接お話をうかがいます。</p>
         <a class="btn" id="bookBtn" target="_blank" rel="noopener">無料相談を予約する</a>
         <a class="btn line" id="lineBtn" target="_blank" rel="noopener">LINEで気軽に質問する</a>
         <p class="note">結果はメールでもお送りしました。届かない場合は迷惑メールフォルダをご確認ください。</p>
@@ -167,6 +183,11 @@
     </div>
     <button class="btn ghost" id="retryBtn">もう一度診断する</button>
   </section>
+
+  <footer>
+    <p>運営：Re9design　川添 康大（神奈川県伊勢原市）</p>
+    <p>ご入力いただいた情報は、診断結果とご案内のメールをお送りするためだけに使います。</p>
+  </footer>
 
 </div>
 
