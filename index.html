@@ -9,7 +9,7 @@
   :root {
     --bg: #f7f6f2; --card: #ffffff; --ink: #222; --sub: #666; --line: #e3e0d8;
     --accent: #2f6f62; --accent-soft: #e6f1ee; --good: #2b8a3e; --mid: #d99a00; --bad: #c8553d;
-    --line-green: #06c755;
+    --line-green: #06c755; --warn-soft: #fdf4e3; --bad-soft: #fbece8;
   }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--ink);
@@ -19,15 +19,20 @@
     padding: 2px 10px; border-radius: 99px; font-weight: 700; }
   h1 { font-size: 24px; line-height: 1.4; margin: 12px 0 8px; }
   h2 { font-size: 18px; margin: 0 0 12px; }
+  h3 { font-size: 16px; margin: 14px 0 4px; }
+  h1:focus, h2:focus, .q:focus { outline: none; }
   p.lead { color: var(--sub); margin: 0 0 20px; }
   .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
   .btn { display: block; width: 100%; border: 0; border-radius: 10px; padding: 14px; font-size: 16px; font-weight: 700;
-    background: var(--accent); color: #fff; cursor: pointer; text-align: center; text-decoration: none; }
+    background: var(--accent); color: #fff; cursor: pointer; text-align: center; text-decoration: none; font-family: inherit; }
   .btn.line { background: var(--line-green); }
   .btn.ghost { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
   .btn:disabled { opacity: .4; cursor: default; }
   .btn + .btn { margin-top: 10px; }
+  .btn:focus-visible, .choice:focus-visible, .back:focus-visible, input:focus-visible, select:focus-visible {
+    outline: 3px solid #1d4ed8; outline-offset: 2px; }
   .hidden { display: none; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .progress { height: 6px; background: var(--line); border-radius: 99px; overflow: hidden; margin-bottom: 8px; }
   .progress > div { height: 100%; background: var(--accent); width: 0; transition: width .3s; }
   .step { font-size: 13px; color: var(--sub); margin-bottom: 16px; }
@@ -37,24 +42,41 @@
   .choice { border: 2px solid var(--line); background: var(--card); border-radius: 10px; padding: 14px; font-size: 16px;
     text-align: left; cursor: pointer; color: var(--ink); font-family: inherit; }
   .choice:hover { border-color: var(--accent); }
-  .back { background: none; border: 0; color: var(--sub); margin-top: 16px; cursor: pointer; font-size: 14px; }
+  .choice[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); font-weight: 700; }
+  .back { background: none; border: 0; color: var(--sub); margin-top: 16px; cursor: pointer; font-size: 14px; padding: 8px 0; font-family: inherit; }
   select, input, textarea { width: 100%; font-size: 16px; padding: 10px; border: 1px solid var(--line); border-radius: 8px;
     margin: 4px 0 14px; font-family: inherit; background: #fff; color: var(--ink); }
+  input[aria-invalid="true"] { border-color: var(--bad); }
   label { font-size: 14px; font-weight: 700; }
   .opt { font-weight: 400; color: var(--sub); font-size: 12px; }
-  .checks { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; margin: 6px 0 14px; }
+  .req { font-weight: 700; color: var(--bad); font-size: 12px; }
+  .checks { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; margin: 6px 0 14px; border: 0; padding: 0; }
+  .checks legend { font-size: 14px; font-weight: 700; padding: 0; margin-bottom: 4px; }
   .checks label { font-weight: 400; display: flex; gap: 6px; align-items: center; }
   .checks input { width: auto; margin: 0; }
+  .consent { border-top: 1px solid var(--line); padding-top: 12px; margin-top: 4px; }
+  .check { display: flex; gap: 8px; align-items: flex-start; font-weight: 400; margin: 10px 0; }
+  .check input { width: 20px; height: 20px; margin: 3px 0 0; flex: none; }
   .score { text-align: center; }
   .score .num { font-size: 56px; font-weight: 800; color: var(--accent); line-height: 1.1; }
   .score .type { font-size: 20px; font-weight: 700; margin-top: 4px; }
   .bar-row { margin: 10px 0; }
-  .bar-row .head { display: flex; justify-content: space-between; font-size: 14px; }
+  .bar-row .head { display: flex; justify-content: space-between; font-size: 14px; gap: 8px; }
+  .bar-row .head b { white-space: nowrap; }
   .bar { height: 10px; background: var(--line); border-radius: 99px; overflow: hidden; }
   .bar > div { height: 100%; border-radius: 99px; }
+  .summary { margin: 0; }
+  .summary dt { font-size: 13px; color: var(--sub); }
+  .summary dd { margin: 0 0 10px; font-weight: 700; }
   .advice li { margin-bottom: 8px; }
   .note { font-size: 12px; color: var(--sub); }
   .err { color: var(--bad); font-size: 14px; margin: 0 0 10px; }
+  .status { border-radius: 10px; padding: 12px 14px; font-size: 14px; margin-bottom: 16px; border: 1px solid var(--line); }
+  .status.ok { background: var(--accent-soft); border-color: var(--accent); }
+  .status.warn { background: var(--warn-soft); border-color: var(--mid); }
+  .status.bad { background: var(--bad-soft); border-color: var(--bad); }
+  .status p { margin: 0 0 6px; }
+  .status p:last-child { margin-bottom: 0; }
   .locked { position: relative; }
   .brand { font-size: 13px; color: var(--sub); margin: 0 0 6px; }
   .brand b { color: var(--ink); }
@@ -62,19 +84,28 @@
   .profile .who { font-size: 13px; color: var(--sub); margin: 0 0 10px; }
   .profile p { margin: 0 0 8px; font-size: 15px; }
   .profile p:last-child { margin-bottom: 0; }
+  .did { font-family: ui-monospace, Menlo, Consolas, monospace; font-weight: 700; letter-spacing: .02em; }
   footer { text-align: center; font-size: 12px; color: var(--sub); margin-top: 32px; }
   footer p { margin: 2px 0; }
   .locked .blur { filter: blur(5px); user-select: none; pointer-events: none; }
+  /* テストモード・公開準備の表示（本番の公開ページでは出ない） */
+  .env-banner { background: var(--warn-soft); border: 2px solid var(--mid); border-radius: 10px; padding: 10px 14px;
+    font-size: 14px; margin-bottom: 16px; }
+  .env-banner p { margin: 0 0 4px; }
+  .env-banner p:last-child { margin-bottom: 0; }
+  @media (prefers-reduced-motion: reduce) { .progress > div { transition: none; } }
 </style>
 </head>
 <body>
 <div class="wrap">
+  <div id="envBanner" class="env-banner hidden" role="note" aria-label="テストモードのお知らせ"></div>
+  <main>
 
   <!-- スタート画面 -->
-  <section id="start">
+  <section id="start" aria-labelledby="startTitle">
     <p class="brand"><b>Re9design</b>（神奈川県伊勢原市）の無料診断</p>
     <span class="badge">無料・約2分・登録不要で開始</span>
-    <h1>あなたの事業の「伝わるデザイン」診断</h1>
+    <h1 id="startTitle" tabindex="-1">あなたの事業の「伝わるデザイン」診断</h1>
     <p class="lead">ロゴ・名刺・チラシ・ホームページ。お客様や利用者に、あなたの良さはちゃんと伝わっていますか？12の質問で、強いところと直すと効果が出やすいところが分かります。</p>
     <div class="card">
       <label for="bizType">あなたの事業に近いものを選んでください</label>
@@ -97,52 +128,79 @@
   </section>
 
   <!-- 質問画面 -->
-  <section id="quiz" class="hidden">
-    <div class="progress"><div id="prog"></div></div>
+  <section id="quiz" class="hidden" aria-label="診断の質問">
+    <div class="progress" role="progressbar" aria-label="回答の進み具合" aria-valuemin="0" aria-valuemax="13" aria-valuenow="0" id="progWrap"><div id="prog"></div></div>
     <div class="step" id="stepText"></div>
     <div class="card">
       <div class="axis" id="axisText"></div>
-      <div class="q" id="qText"></div>
-      <div class="choices">
-        <button class="choice" data-v="2">はい</button>
-        <button class="choice" data-v="1">少しできている</button>
-        <button class="choice" data-v="0">いいえ・分からない</button>
+      <div class="q" id="qText" tabindex="-1"></div>
+      <div class="choices" role="group" aria-labelledby="qText">
+        <button class="choice" data-v="2" aria-pressed="false">はい</button>
+        <button class="choice" data-v="1" aria-pressed="false">少しできている</button>
+        <button class="choice" data-v="0" aria-pressed="false">いいえ・分からない</button>
       </div>
     </div>
     <button class="back" id="backBtn">← 前の質問にもどる</button>
   </section>
 
+  <!-- 経営課題（点数には入れない） -->
+  <section id="challenge" class="hidden" aria-labelledby="chTitle">
+    <div class="progress" aria-hidden="true"><div style="width:96%"></div></div>
+    <div class="step">最後の質問（点数には入りません）</div>
+    <div class="card">
+      <div class="axis">いちばん解決したいこと</div>
+      <h2 class="q" id="chTitle" tabindex="-1">今、最も解決したい課題は何ですか？</h2>
+      <div class="choices" role="group" aria-labelledby="chTitle" id="chChoices"></div>
+      <p class="note" style="margin:12px 0 0">答えに合わせて、結果のアドバイスと相談の内容を整えます。</p>
+    </div>
+    <button class="back" id="chBackBtn">← 前の質問にもどる</button>
+  </section>
+
   <!-- 結果画面 -->
-  <section id="result" class="hidden">
+  <section id="result" class="hidden" aria-labelledby="resultTitle">
     <div class="card score">
-      <div class="note">あなたの「伝わるデザイン」点数</div>
+      <h2 class="note" id="resultTitle" tabindex="-1" style="font-weight:400;margin:0">あなたの「伝わるデザイン」点数</h2>
       <div class="num" id="totalNum"></div>
       <div class="type" id="typeText"></div>
       <p id="descText" style="text-align:left"></p>
+      <p class="note" style="text-align:left;margin:0">※ご自身の回答をもとにした簡易診断です。点数は「デザインで伝えられているか」の目安で、事業の成果や価値を表すものではありません。</p>
     </div>
     <div class="card">
       <h2>4つの分野の点数</h2>
       <div id="bars"></div>
     </div>
+    <div class="card">
+      <h2>診断のまとめ</h2>
+      <dl class="summary">
+        <dt>いちばん解決したい課題</dt><dd id="sumChallenge"></dd>
+        <dt>優先して見直したい分野</dt><dd id="sumWeak"></dd>
+        <dt>診断番号</dt><dd><span class="did" id="sumId"></span><br><span class="note" style="font-weight:400">相談の予約やLINEで、この番号をお伝えいただくと結果をもとにお話しできます（お名前などの個人情報は含みません）。</span></dd>
+      </dl>
+    </div>
 
     <!-- 登録前：アドバイスはぼかして見せる -->
     <div id="gate">
       <div class="card locked">
-        <h2>あなたが最初に直すべきところ</h2>
-        <div class="blur"><ul class="advice"><li>ここに分野ごとの具体的な改善ポイントが表示されます</li><li>あなたの業種に合わせたアドバイスです</li><li>今日からできることも入っています</li></ul></div>
+        <h2>あなたに合わせた改善ポイント</h2>
+        <div class="blur" aria-hidden="true">
+          <h3>今週できる改善</h3><ul class="advice"><li>ここに今日から始められることが表示されます</li></ul>
+          <h3>優先度の高い改善</h3><ul class="advice"><li>点数の低い分野の具体的な改善ポイントです</li></ul>
+          <h3>相談で整理できること</h3><ul class="advice"><li>選んだ課題に合わせた内容です</li></ul>
+        </div>
+        <p class="sr-only">登録すると、今週できる改善・優先度の高い改善・相談で整理できることが表示されます。</p>
       </div>
       <div class="card">
-        <h2>改善ポイントを見る（無料）</h2>
+        <h2 id="formTitle">改善ポイントを見る（無料）</h2>
         <p class="note">メールアドレスを入れると、この画面に改善ポイントが表示され、同じ内容をメールでもお送りします。売り込みの電話はしません。</p>
-        <form id="leadForm" novalidate>
-          <label for="fName">お名前</label>
-          <input id="fName" autocomplete="name" required>
+        <form id="leadForm" novalidate aria-labelledby="formTitle">
+          <label for="fName">お名前 <span class="req">必須</span></label>
+          <input id="fName" autocomplete="name" required maxlength="60" aria-describedby="formErr">
           <label for="fShop">屋号・事業所名 <span class="opt">（任意）</span></label>
-          <input id="fShop" autocomplete="organization">
-          <label for="fEmail">メールアドレス</label>
-          <input id="fEmail" type="email" autocomplete="email" required>
-          <label>気になっていること <span class="opt">（いくつでも・任意）</span></label>
-          <div class="checks" id="fWants">
+          <input id="fShop" autocomplete="organization" maxlength="100">
+          <label for="fEmail">メールアドレス <span class="req">必須</span></label>
+          <input id="fEmail" type="email" inputmode="email" autocomplete="email" required maxlength="254" aria-describedby="formErr">
+          <fieldset class="checks" id="fWants">
+            <legend>気になっていること <span class="opt">（いくつでも・任意）</span></legend>
             <label><input type="checkbox" value="ロゴ">ロゴ</label>
             <label><input type="checkbox" value="名刺">名刺</label>
             <label><input type="checkbox" value="チラシ">チラシ</label>
@@ -151,7 +209,7 @@
             <label><input type="checkbox" value="採用ページ・求人">採用・求人</label>
             <label><input type="checkbox" value="看板・のぼり">看板・のぼり</label>
             <label><input type="checkbox" value="SNS画像">SNS画像</label>
-          </div>
+          </fieldset>
           <label for="fWhen">時期のめやす <span class="opt">（任意）</span></label>
           <select id="fWhen">
             <option value="">選んでください</option>
@@ -160,44 +218,107 @@
             <option>半年以内</option>
             <option>まだ情報集め</option>
           </select>
-          <label><input type="checkbox" id="fAgree" style="width:auto;margin:0 6px 0 0">役立つ情報のメール（4通程度・いつでも停止できます）を受け取ることに同意します</label>
-          <p class="err hidden" id="formErr"></p>
+          <div class="consent">
+            <p class="note" id="privacyText">ご入力いただいた情報と診断結果は、Re9 design（運営：川添 康大）が、診断結果のメール送付、ご相談への対応、無料相談のご予約との照合のために利用し、Google のサービス（スプレッドシート・Gmail）で保管します。保管とメールの送信には米国の Google LLC のサービスを使うため、情報は米国など日本の外で取り扱われます（外国にある第三者への提供）。米国の制度と Google の措置は、プライバシーポリシーの8章(3)をご覧ください。法令に基づく場合を除き、ご本人の同意なく第三者に提供することはありません。健康状態など、要配慮個人情報は入力しないでください。保存期間、利用する外部サービス、開示・削除などのご請求方法は、<a id="privacyLink" class="hidden" target="_blank" rel="noopener">プライバシーポリシー</a><span id="privacyName">プライバシーポリシー</span>をご覧ください。削除をご希望の場合は、届いたメールへの返信か LINE でお知らせください。</p>
+            <!-- 診断結果メール（必須）と案内メール（任意）の同意は分ける。案内メールは初めからチェックを入れない -->
+            <label class="check"><input type="checkbox" id="fConsent" aria-describedby="privacyText formErr"><span>プライバシーポリシーと上の内容（米国の事業者への提供を含む）に同意して、診断結果をメールで受け取る <span class="req">必須</span></span></label>
+            <label class="check"><input type="checkbox" id="fAgree"><span>デザインや集客に役立つ情報の案内メール（登録から約10日間で3通程度・いつでも停止できます）も受け取る <span class="opt">（任意）</span></span></label>
+          </div>
+          <p class="err hidden" id="formErr" role="alert"></p>
           <button class="btn" type="submit" id="submitBtn" style="margin-top:12px">改善ポイントを見る</button>
         </form>
+      </div>
+      <div class="card">
+        <h2>登録せずに相談したい方へ</h2>
+        <p class="note">メールアドレスを登録しなくても、無料相談の予約や LINE での質問ができます。予約のメモ欄や LINE で診断番号 <span class="did" data-did></span> をお伝えください。</p>
+        <a class="btn ghost" data-consult="booking" data-placement="pre_register" target="_blank" rel="noopener">無料相談を予約する（30分・オンライン可）</a>
+        <a class="btn ghost" data-consult="line" data-placement="pre_register" target="_blank" rel="noopener">LINEで質問する</a>
       </div>
     </div>
 
     <!-- 登録後 -->
     <div id="unlocked" class="hidden">
+      <div id="sendStatus" class="status" role="status" tabindex="-1"></div>
       <div class="card">
-        <h2>あなたが最初に直すべきところ</h2>
+        <h2>あなたに合わせた改善ポイント</h2>
         <div id="adviceBox"></div>
       </div>
       <div class="card">
         <h2>プロに相談してみませんか？</h2>
-        <p>この診断結果をもとに、何から・どのくらいの予算で直すと効果的かを、30分の無料相談でお伝えします（オンライン可）。相談では、Re9design の川添が直接お話をうかがいます。</p>
-        <a class="btn" id="bookBtn" target="_blank" rel="noopener">無料相談を予約する</a>
-        <a class="btn line" id="lineBtn" target="_blank" rel="noopener">LINEで気軽に質問する</a>
-        <p class="note">結果はメールでもお送りしました。届かない場合は迷惑メールフォルダをご確認ください。</p>
+        <p>この診断結果と、選んでいただいた課題をもとに、何から・どのくらいの予算で直すと効果的かを30分の無料相談で一緒に整理します（オンライン可）。Re9design の川添が直接お話をうかがいます。無理におすすめすることはありません。</p>
+        <a class="btn" data-consult="booking" data-placement="post_register" target="_blank" rel="noopener">無料相談を予約する</a>
+        <a class="btn line" data-consult="line" data-placement="post_register" target="_blank" rel="noopener">LINEで気軽に質問する</a>
+        <p class="note">予約のメモ欄や LINE で、診断番号 <span class="did" data-did></span> をお伝えいただくとスムーズです。</p>
       </div>
     </div>
     <button class="btn ghost" id="retryBtn">もう一度診断する</button>
   </section>
 
+  </main>
   <footer>
     <p>運営：Re9design　川添 康大（神奈川県伊勢原市）</p>
-    <p>ご入力いただいた情報は、診断結果とご案内のメールをお送りするためだけに使います。</p>
+    <p>ご入力いただいた情報は、診断結果のメール送付とご相談のために使います。案内メールは、同意いただいた方にだけお送りします。</p>
+    <p><a id="privacyFooterLink" class="hidden" target="_blank" rel="noopener">プライバシーポリシー</a></p>
   </footer>
 
 </div>
 
+<!-- サイト共通の設定（公式サイト・プライバシーポリシーの URL など）。読めなかったときも診断は動く（ポリシーのリンクが出ないだけ） -->
+<script src="site-config.js"></script>
 <script>
 // ===== 設定（README の手順で作ったURLを入れてください） =====
 const CONFIG = {
   GAS_URL: "https://script.google.com/macros/s/AKfycbxmMDrvNUz6VdKz-87bjQxhGz2pEB6tXgpKGvN2_kNYZgL1ZV0JttIQYnyToCe6AfzZ/exec",       // Google Apps Script のウェブアプリURL
   BOOKING_URL: "https://calendar.app.google/5GGzWbyTgjWhYnPz6",   // Googleカレンダーの予約ページURL
-  LINE_URL: "https://lin.ee/PcSNxLP"       // LINE公式アカウントの友だち追加URL
+  LINE_URL: "https://lin.ee/PcSNxLP",       // LINE公式アカウントの友だち追加URL
+  TEST_GAS_URL: "",                         // テスト用デプロイのURL（任意・https）。空ならテストモードでは送信しない。本番URLと同じ値は無視する
+  PRIVACY_URL: "",                          // 手動で上書きするときだけ入れる（https のみ）。ふだんは空にして site-config.js の設定を使う
+  PRIVACY_NOTICE_VERSION: "2026-11-05",     // 同意の記録に残す版。privacy.html の版・site-config.js の privacyPolicy.version と同じにする
+  TIMEOUT_MS: 20000                          // 送信の応答を待つ時間
 };
+
+// ===== 本番以外では本番 GAS に送らない =====
+// ローカル（localhost・127.x・[::1]）、LAN（10.x・192.168.x・172.16-31.x・*.local）、file://、?mode=test はテストモード。
+// URL の指定で「送信を止める」ことはできるが、「本番へ送る」方向には切り替えられない。
+function nonProductionReason(loc) {
+  const h = String(loc.hostname || "").toLowerCase().replace(/^\[|\]$/g, "");
+  if (loc.protocol === "file:" || h === "") return "ファイルを直接開いています";
+  if (h === "localhost" || h.endsWith(".localhost") || h === "::1" || h === "0.0.0.0" || /^127\./.test(h)) return "ローカル環境です";
+  if (h.endsWith(".local") || /^10\./.test(h) || /^192\.168\./.test(h) || /^172\.(1[6-9]|2\d|3[01])\./.test(h)) return "LAN内のアドレスです";
+  if (new URLSearchParams(loc.search).get("mode") === "test") return "URLに ?mode=test が付いています";
+  return "";
+}
+const TEST_REASON = (() => { try { return nonProductionReason(window.location); } catch (e) { return "環境を判定できませんでした"; } })();
+const TEST_MODE = TEST_REASON !== "";
+
+function safeHttpsUrl(u) {
+  if (!u) return "";
+  try { const x = new URL(String(u)); return x.protocol === "https:" ? x.href : ""; } catch (e) { return ""; }
+}
+
+// Apps Script ウェブアプリの URL の形（https://script.google.com/macros/s/…/exec、Workspace の /a/macros/ドメイン/s/…/exec）
+const GAS_URL_PATTERN = /^https:\/\/script\.google\.com\/(?:a\/macros\/[^/?#\s]+\/|macros\/)s\/[\w-]+\/exec$/;
+function validGasUrl(u) {
+  const s = typeof u === "string" ? u.trim() : "";
+  return GAS_URL_PATTERN.test(s) ? s : "";
+}
+
+// テストモードだけで使える「送信失敗の表示」の再現（?mode=test&simulate=unconfigured など）。通信はしない。
+// 成功（ok）は再現できない：送っていないのに「受け付けました」と出さないため
+const SIMULATE_STATES = ["unconfigured", "rejected", "unconfirmed", "offline"];
+const SIMULATE = (() => {
+  if (!TEST_MODE) return "";
+  try { const s = new URLSearchParams(window.location.search).get("simulate"); return SIMULATE_STATES.includes(s) ? s : ""; }
+  catch (e) { return ""; }
+})();
+
+// 実際の送信先。本番は GAS_URL が正しい形のときだけ（空・不正なら送らない）。
+// テストモードでは TEST_GAS_URL（本番と同じURLなら使わない）、なければ空＝送らない
+function sendTarget() {
+  if (!TEST_MODE) return validGasUrl(CONFIG.GAS_URL);
+  const t = safeHttpsUrl(CONFIG.TEST_GAS_URL);
+  return t && t !== safeHttpsUrl(CONFIG.GAS_URL) ? t : "";
+}
 
 const AXES = {
   first: { name: "第一印象", tip: "ひと目で何の事業か分かるか" },
@@ -221,6 +342,7 @@ const QUESTIONS = [
   { axis: "reach", q: "問い合わせ・申し込みの方法が、迷わない1つの流れになっている" }
 ];
 
+// 各分野の1つ目は「今週できる改善」、2つ目以降は「優先度の高い改善」に出す
 const ADVICE = {
   first: [
     "まず「メインの色1つ・書体1つ」を決め、名刺・チラシ・SNSをそろえる",
@@ -244,34 +366,90 @@ const ADVICE = {
   ]
 };
 
-// 業種ごとに足すアドバイス
-const TYPE_ADVICE = {
-  startup: { label: "起業したての方へ", text: "最初から全部を作る必要はありません。ロゴ → 名刺 → Googleマップ → ホームページの順にそろえると、少ない予算でも「ちゃんとした事業」に見えます。" },
-  care:    { label: "介護・看護の事業所の方へ", text: "利用者のご家族向けと、ケアマネジャーなど紹介してくれる専門職向けでは、知りたいことが違います。パンフレットを2種類に分けるだけで、紹介が増えやすくなります。採用に悩んでいる場合は、職員の声と1日の流れを載せた採用ページが効果的です。" },
-  solo:    { label: "個人事業主・お店の方へ", text: "大きな会社と同じ土俵で戦う必要はありません。「あなたにお願いする理由」が伝わる顔写真・想い・お客様の声が、いちばんの武器になります。" }
+// 経営課題（点数には混ぜない。助言・相談前の情報・提案候補に使う）
+const CHALLENGES = {
+  acquisition: {
+    label: "新規顧客・問い合わせを増やしたい",
+    week: "名刺・チラシ・ホームページ・Googleマップを並べ、問い合わせ方法（電話・LINE・フォーム）が同じになっているか見比べる",
+    consult: ["今の問い合わせが、どこから・月に何件くらい来ているかの整理", "どの媒体（Googleマップ・HP・チラシなど）から直すと効果が出やすいかの優先順位", "問い合わせまでの流れで、お客様が迷いやすいところの確認"]
+  },
+  recruitment: {
+    label: "採用応募を増やしたい",
+    week: "求人票や採用ページに「1日の流れ」「職員の声」「職場の写真」が載っているか確かめる",
+    consult: ["応募してほしい人に、何を伝えると届きやすいかの整理", "求人サイト・自社ページ・チラシなど、応募の入口ごとの見直し", "今の応募数と、面接・採用までの流れの確認"]
+  },
+  branding: {
+    label: "自社の強み・魅力を伝えたい",
+    week: "お客様や利用者に言われてうれしかった言葉を3つ書き出し、名刺やHPに載っているか確かめる",
+    consult: ["ほかと比べたときの「選ばれる理由」のことば選び", "その強みを、ロゴ・パンフレット・HPのどこでどう見せるか", "伝えたい相手（お客様・紹介者・求職者）ごとの伝え方"]
+  },
+  unclear: {
+    label: "何から改善すべきか分からない",
+    week: "今ある名刺・チラシ・HP・SNSなどを一か所に並べ、使っているもの・古いものに分ける",
+    consult: ["今の困りごとと、半年後にどうなっていたいかの整理", "予算と手間に合わせた、直す順番の決め方", "自分でできること・頼んだ方がよいことの切り分け"]
+  }
 };
 
-let bizType = "", answers = [], idx = 0, result = null;
+// 業種ごとに足すアドバイス（実態をうかがう前なので、言い切らない）
+const TYPE_ADVICE = {
+  startup: { label: "起業したての方へ", text: "最初から全部を作る必要はありません。たとえばロゴ → 名刺 → Googleマップ → ホームページの順にそろえていくと、少ない予算でも事業の姿が伝わりやすくなります。" },
+  care:    { label: "介護・看護の事業所の方へ", text: "利用者のご家族と、ケアマネジャーなど紹介してくれる専門職とでは、知りたいことが違う場合があります。相手ごとに伝える内容を分けると、紹介につながりやすくなることがあります。採用でお困りなら、職員の声や1日の流れを伝える採用ページも選択肢の一つです。" },
+  solo:    { label: "個人事業主・お店の方へ", text: "大きな会社と同じやり方をする必要はありません。顔写真・想い・お客様の声など「あなたにお願いする理由」が伝わる情報が、選ばれるきっかけになることがよくあります。" }
+};
+
+let bizType = "", answers = [], idx = 0, challenge = "", result = null, diagnosisId = "", requestId = "";
+let submitting = false, submittedId = "", choiceLock = false;
 const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
 function track(name, params) {
-  // GA4を入れたら、ここで診断の利用数・完了数・登録数を計測できる
+  // GA4（GTM）を入れたら、dataLayer のイベントとして計測できる。個人情報は入れない
   window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({ event: name, ...params });
+  window.dataLayer.push({ event: name, diagnosis_id: diagnosisId || undefined, ...params });
 }
 
-function show(id) {
-  ["start", "quiz", "result"].forEach(s => $(s).classList.toggle("hidden", s !== id));
+// 診断ごとの番号（顧客IDとは別。個人情報は含まない）
+function newDiagnosisId() {
+  const d = new Date(), pad = n => String(n).padStart(2, "0");
+  const bytes = new Uint8Array(5);
+  (window.crypto || {}).getRandomValues ? crypto.getRandomValues(bytes) : bytes.forEach((_, i) => bytes[i] = Math.random() * 256);
+  const rand = [...bytes].map(b => "abcdefghjkmnpqrstuvwxyz23456789"[b % 31]).join("").toUpperCase();
+  return `D${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}-${rand}`;
+}
+
+// 送信の重複を防ぐためのID（UUID v4）。診断ごとに1つ作り、同じ診断の再送では同じ値を使う。
+// 画面には出さず、URL にも載せない（GAS 側はハッシュだけを保存する）
+function newRequestId() {
+  if (window.crypto && typeof crypto.randomUUID === "function") return crypto.randomUUID();
+  const b = new Uint8Array(16);
+  (window.crypto || {}).getRandomValues ? crypto.getRandomValues(b) : b.forEach((_, i) => b[i] = Math.random() * 256);
+  b[6] = (b[6] & 0x0f) | 0x40; b[8] = (b[8] & 0x3f) | 0x80;
+  const h = [...b].map(x => x.toString(16).padStart(2, "0")).join("");
+  return `${h.slice(0, 8)}-${h.slice(8, 12)}-${h.slice(12, 16)}-${h.slice(16, 20)}-${h.slice(20)}`;
+}
+
+function show(id, focusId) {
+  ["start", "quiz", "challenge", "result"].forEach(s => $(s).classList.toggle("hidden", s !== id));
   window.scrollTo(0, 0);
+  if (focusId) $(focusId).focus({ preventScroll: true });
 }
 
 function renderQ() {
   const item = QUESTIONS[idx];
-  $("prog").style.width = (idx / QUESTIONS.length * 100) + "%";
+  $("prog").style.width = (idx / (QUESTIONS.length + 1) * 100) + "%";
+  $("progWrap").setAttribute("aria-valuenow", idx);
   $("stepText").textContent = `質問 ${idx + 1} / ${QUESTIONS.length}`;
   $("axisText").textContent = AXES[item.axis].name;
-  $("qText").textContent = item.q;
-  $("backBtn").style.visibility = idx === 0 ? "hidden" : "visible";
+  $("qText").textContent = `質問${idx + 1}：${item.q}`;
+  $("backBtn").textContent = idx === 0 ? "← 業種の選択にもどる" : "← 前の質問にもどる";
+  document.querySelectorAll("#quiz .choice").forEach(b =>
+    b.setAttribute("aria-pressed", String(answers[idx] === Number(b.dataset.v))));
+}
+
+function renderChallenge() {
+  $("chChoices").innerHTML = Object.keys(CHALLENGES).map(k =>
+    `<button class="choice" data-c="${k}" aria-pressed="${challenge === k}">${esc(CHALLENGES[k].label)}</button>`).join("");
+  show("challenge", "chTitle");
 }
 
 function calc() {
@@ -281,13 +459,13 @@ function calc() {
   const total = Math.round(answers.reduce((a, b) => a + b, 0) / (QUESTIONS.length * 2) * 100);
   const pct = {};
   Object.keys(axes).forEach(k => pct[k] = Math.round(axes[k].got / axes[k].max * 100));
-  // 点数の低い順に2分野を「直すと効果が出やすいところ」とする
+  // 点数の低い順に2分野を「直すと効果が出やすいところ」とする（同点は表示順）
   const weak = Object.keys(pct).sort((a, b) => pct[a] - pct[b]).slice(0, 2);
 
   let type, desc;
-  if (total >= 80) { type = "しっかり伝わっている事業"; desc = "土台はできています。弱い分野を1つ磨くことで、問い合わせの質がさらに上がります。"; }
-  else if (total >= 50) { type = "あと一歩で選ばれる事業"; desc = "良いところと弱いところがはっきりしています。弱いところを1つ直すだけで、結果が変わりやすい段階です。"; }
-  else { type = "伸びしろが大きい事業"; desc = "あなたの事業の良さが、まだ相手に届いていない可能性があります。直す順番を決めれば、少ない予算でも効果が出やすい状態です。"; }
+  if (total >= 80) { type = "しっかり伝わっている事業"; desc = "土台はできています。弱い分野を1つ磨くことで、問い合わせの質がさらに上がる可能性があります。"; }
+  else if (total >= 50) { type = "あと一歩で選ばれる事業"; desc = "良いところと弱いところがはっきりしています。弱いところから順に直すと、変化を感じやすい段階です。"; }
+  else { type = "伸びしろが大きい事業"; desc = "あなたの事業の良さが、まだ相手に届いていない可能性があります。直す順番を決めれば、少ない予算でも取り組みやすい状態です。"; }
   return { total, pct, weak, type, desc };
 }
 
@@ -300,51 +478,182 @@ function renderResult() {
     const p = result.pct[k];
     const color = p >= 70 ? "var(--good)" : p >= 40 ? "var(--mid)" : "var(--bad)";
     return `<div class="bar-row"><div class="head"><span>${AXES[k].name}<span class="note">　${AXES[k].tip}</span></span><b>${p}点</b></div>
-      <div class="bar"><div style="width:${p}%;background:${color}"></div></div></div>`;
+      <div class="bar" aria-hidden="true"><div style="width:${p}%;background:${color}"></div></div></div>`;
   }).join("");
+  $("sumChallenge").textContent = CHALLENGES[challenge].label;
+  $("sumWeak").textContent = result.weak.map(k => `${AXES[k].name}（${result.pct[k]}点）`).join("・");
+  $("sumId").textContent = diagnosisId;
+  document.querySelectorAll("[data-did]").forEach(el => el.textContent = diagnosisId);
   $("gate").classList.remove("hidden");
   $("unlocked").classList.add("hidden");
-  show("result");
-  track("diagnosis_complete", { biz_type: bizType, score: result.total });
+  $("formErr").classList.add("hidden");
+  show("result", "resultTitle");
+  track("diagnosis_complete", { biz_type: bizType, score: result.total, challenge, weak_axes: result.weak.join(",") });
 }
 
 function renderAdvice() {
-  const ta = TYPE_ADVICE[bizType];
-  $("adviceBox").innerHTML = result.weak.map(k =>
-    `<h3 style="font-size:16px;margin:8px 0 4px">${AXES[k].name}（${result.pct[k]}点）</h3>
-     <ul class="advice">${ADVICE[k].map(a => `<li>${a}</li>`).join("")}</ul>`
-  ).join("") + `<p><b>${ta.label}</b><br>${ta.text}</p>`;
-  $("bookBtn").href = CONFIG.BOOKING_URL || "#";
-  $("lineBtn").href = CONFIG.LINE_URL || "#";
-  $("bookBtn").classList.toggle("hidden", !CONFIG.BOOKING_URL);
-  $("lineBtn").classList.toggle("hidden", !CONFIG.LINE_URL);
+  const ta = TYPE_ADVICE[bizType], ch = CHALLENGES[challenge];
+  const week = [...result.weak.map(k => ADVICE[k][0]), ch.week];
+  $("adviceBox").innerHTML =
+    `<h3>今週できる改善</h3><ul class="advice">${week.map(a => `<li>${esc(a)}</li>`).join("")}</ul>` +
+    `<h3>優先度の高い改善</h3>` + result.weak.map(k =>
+      `<p style="margin:4px 0 0"><b>${AXES[k].name}（${result.pct[k]}点）</b></p>
+       <ul class="advice">${ADVICE[k].slice(1).map(a => `<li>${esc(a)}</li>`).join("")}</ul>`).join("") +
+    `<h3>相談で整理できること</h3><p class="note" style="margin:0">「${esc(ch.label)}」について</p>
+     <ul class="advice">${ch.consult.map(a => `<li>${esc(a)}</li>`).join("")}</ul>` +
+    `<p><b>${esc(ta.label)}</b><br>${esc(ta.text)}</p>
+     <p class="note">ここでのアドバイスは回答からの一般的な目安です。実際の状況をうかがってから、合う方法を一緒に考えます。</p>`;
+}
+
+function setStatus(kind, html) {
+  const el = $("sendStatus");
+  el.className = "status " + kind;
+  el.innerHTML = html;
+}
+
+function unlock() {
+  renderAdvice();
+  $("gate").classList.add("hidden");
+  $("unlocked").classList.remove("hidden");
+  $("sendStatus").focus({ preventScroll: false });
+}
+
+// GAS に送る。応答が読めたときだけ「受付済み」とし、読めないときは「未確認」として扱う
+async function postLead(payload) {
+  if (SIMULATE) return { state: SIMULATE, simulated: true };   // テストモードのみ。送信しない
+  const url = sendTarget();
+  if (!url) {
+    if (!TEST_MODE) console.error("[Re9] GAS_URL が未設定か、Apps Script の URL の形ではないため送信しませんでした");
+    return { state: TEST_MODE ? "test" : "unconfigured" };
+  }
+  if (navigator.onLine === false) return { state: "offline" };
+  const ctrl = window.AbortController ? new AbortController() : null;
+  const timer = ctrl && setTimeout(() => ctrl.abort(), CONFIG.TIMEOUT_MS);
+  try {
+    // text/plain の単純なリクエストにして、Apps Script 側で事前確認（CORS preflight）を起こさない
+    const res = await fetch(url, { method: "POST", redirect: "follow",
+      headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload),
+      signal: ctrl ? ctrl.signal : undefined });
+    const data = await res.json().catch(() => null);
+    if (data && data.ok === true) return { state: "ok", mail: data.mail || "", duplicate: !!data.duplicate };
+    if (data && data.ok === false) return { state: "rejected", error: data.error || "" };
+    return { state: "unconfirmed" };
+  } catch (e) {
+    // CORS で応答が読めない・時間切れなど。サーバーに届いた可能性があるので、失敗とも成功とも言わない
+    return { state: "unconfirmed" };
+  } finally {
+    if (timer) clearTimeout(timer);
+  }
+}
+
+function formError(msg, field) {
+  ["fName", "fEmail", "fConsent"].forEach(f => $(f).removeAttribute("aria-invalid"));
+  $("formErr").textContent = msg;
+  $("formErr").classList.remove("hidden");
+  if (field) { $(field).setAttribute("aria-invalid", "true"); $(field).focus(); }
+}
+
+function setConsultLinks() {
+  document.querySelectorAll("[data-consult]").forEach(a => {
+    const url = a.dataset.consult === "booking" ? CONFIG.BOOKING_URL : CONFIG.LINE_URL;
+    if (url) a.href = url; else a.classList.add("hidden");
+  });
+}
+
+// プライバシーポリシーのリンク先。CONFIG.PRIVACY_URL（https）があればそれを使い、なければ site-config.js から、
+// 公開を確かめたものだけを選ぶ：同じ場所（GitHub Pages）の privacy.html → WordPress の固定ページ の順。どれも無ければ ""
+function privacyTarget() {
+  const manual = safeHttpsUrl(CONFIG.PRIVACY_URL);
+  if (manual) return manual;
+  const P = window.RE9_SITE && window.RE9_SITE.privacyPolicy;
+  if (!P) return "";
+  if (P.githubPagesPublished === true && /^[a-z0-9-]+\.html$/.test(String(P.githubPagesPath || ""))) return P.githubPagesPath;
+  if (P.wordpressPublished === true) return safeHttpsUrl(P.wordpressUrl);
+  return "";
+}
+
+// プライバシーポリシー：公開を確かめたリンク先があるときだけリンクを出す（同意文の中とフッター）。戻り値は表示したかどうか
+// リンク先が無いあいだ、同意文には「プライバシーポリシー」の文字だけを出す（公開前チェックで不合格になるので、このまま公開はされない）
+function applyPrivacyLink() {
+  const link = $("privacyLink"), footerLink = $("privacyFooterLink"), name = $("privacyName");
+  const url = privacyTarget();
+  if (url) {
+    [link, footerLink].forEach(a => { a.href = url; a.classList.remove("hidden"); });
+    name.classList.add("hidden");
+    return true;
+  }
+  [link, footerLink].forEach(a => { a.removeAttribute("href"); a.classList.add("hidden"); });
+  name.classList.remove("hidden");
+  if (CONFIG.PRIVACY_URL) console.warn("[Re9] PRIVACY_URL が https の URL ではないため、リンクを表示しません");
+  else console.warn("[Re9] 公開準備未完了：プライバシーポリシーのリンク先がまだありません（PRIVACY_URL・プライバシーポリシーのURL／site-config.js の *Published）");
+  return false;
+}
+
+// テストモードの帯。公開準備が終わっていない項目もここに出す（本番の公開ページには出さない）
+function renderEnvBanner(privacyOk) {
+  const el = $("envBanner");
+  if (!TEST_MODE) { el.classList.add("hidden"); el.innerHTML = ""; return; }
+  const target = sendTarget();
+  const lines = [`<p><b>テストモード</b>（${esc(TEST_REASON)}）：登録しても本番には送信されません。</p>`,
+    SIMULATE ? `<p>送信失敗の表示を再現中（${esc(SIMULATE)}）：送信しません</p>`
+      : target ? `<p>送信先：テスト用の送信先（TEST_GAS_URL）</p>` : `<p>送信先：なし（送信しません）</p>`];
+  if (!privacyOk) lines.push(`<p><b>公開準備未完了：</b>プライバシーポリシーのURL（CONFIG.PRIVACY_URL）が未設定です（site-config.js で公開済みにしたリンク先もありません）。` +
+    `<a href="privacy.html" target="_blank" rel="noopener">下書き（privacy.html）を見る</a></p>`);
+  el.innerHTML = lines.join("");
+  el.classList.remove("hidden");
+}
+
+function startDiagnosis() {
+  answers = []; idx = 0; challenge = ""; result = null; submittedId = "";
+  diagnosisId = newDiagnosisId();
+  requestId = newRequestId();
+  renderQ(); show("quiz", "qText");
+  track("diagnosis_start", { biz_type: bizType });
 }
 
 $("bizType").addEventListener("change", e => { bizType = e.target.value; $("startBtn").disabled = !bizType; });
-$("startBtn").addEventListener("click", () => {
-  answers = []; idx = 0; renderQ(); show("quiz");
-  track("diagnosis_start", { biz_type: bizType });
-});
-document.querySelectorAll(".choice").forEach(b => b.addEventListener("click", () => {
+$("startBtn").addEventListener("click", () => { if (bizType) startDiagnosis(); });
+document.querySelectorAll("#quiz .choice").forEach(b => b.addEventListener("click", () => {
+  // 連打で質問を飛ばさないよう、少しだけ受け付けを止める
+  if (choiceLock || idx >= QUESTIONS.length) return;
+  choiceLock = true; setTimeout(() => choiceLock = false, 250);
   answers[idx] = Number(b.dataset.v);
   idx++;
-  if (idx < QUESTIONS.length) renderQ(); else renderResult();
+  if (idx < QUESTIONS.length) { renderQ(); $("qText").focus({ preventScroll: true }); }
+  else renderChallenge();
 }));
-$("backBtn").addEventListener("click", () => { if (idx > 0) { idx--; renderQ(); } });
-$("retryBtn").addEventListener("click", () => show("start"));
+$("chChoices").addEventListener("click", e => {
+  const b = e.target.closest("[data-c]");
+  if (!b || $("challenge").classList.contains("hidden")) return;
+  challenge = b.dataset.c;
+  track("challenge_select", { challenge });
+  renderResult();
+});
+$("backBtn").addEventListener("click", () => {
+  if (idx > 0) { idx--; renderQ(); $("qText").focus({ preventScroll: true }); }
+  else show("start", "bizType");
+});
+$("chBackBtn").addEventListener("click", () => { idx = QUESTIONS.length - 1; renderQ(); show("quiz", "qText"); });
+$("retryBtn").addEventListener("click", () => { track("diagnosis_restart", {}); show("start", "startTitle"); });
+
+document.querySelectorAll("[data-consult]").forEach(a => a.addEventListener("click", () =>
+  track(a.dataset.consult === "booking" ? "booking_click" : "line_click",
+    { placement: a.dataset.placement, registered: !!submittedId, challenge })));
 
 $("leadForm").addEventListener("submit", async e => {
   e.preventDefault();
+  if (submitting || !result) return;
   const name = $("fName").value.trim(), email = $("fEmail").value.trim();
-  const err = msg => { $("formErr").textContent = msg; $("formErr").classList.remove("hidden"); };
-  if (!name) return err("お名前を入れてください");
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return err("メールアドレスを確かめてください");
-  if (!$("fAgree").checked) return err("メール受け取りへの同意にチェックを入れてください");
+  if (!name) { track("lead_submit_invalid", { field: "name" }); return formError("お名前を入れてください", "fName"); }
+  // サーバー（GAS）と同じ形だけを受け付ける。最終的な確認はサーバー側で行う
+  if (!/^[A-Za-z0-9][A-Za-z0-9._%+-]*@[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)*\.[A-Za-z]{2,}$/.test(email) || email.length > 254) { track("lead_submit_invalid", { field: "email" }); return formError("メールアドレスを確かめてください（例：name@example.com）", "fEmail"); }
+  if (!$("fConsent").checked) { track("lead_submit_invalid", { field: "consent" }); return formError("診断結果をお送りするため、「同意して受け取る」にチェックを入れてください", "fConsent"); }
   $("formErr").classList.add("hidden");
-  $("submitBtn").disabled = true;
-  $("submitBtn").textContent = "送信中…";
+  ["fName", "fEmail", "fConsent"].forEach(f => $(f).removeAttribute("aria-invalid"));
 
+  const consentMarketing = $("fAgree").checked;
   const payload = {
+    // ここから既存の Code.gs が読む項目（名前を変えない）
     name, email,
     shop: $("fShop").value.trim(),
     bizType: $("bizType").selectedOptions[0].textContent,
@@ -354,24 +663,78 @@ $("leadForm").addEventListener("submit", async e => {
     score: result.total,
     pct: result.pct,
     weak: result.weak.map(k => AXES[k].name).join("、"),
-    weakKeys: result.weak
+    weakKeys: result.weak,
+    // ここから Phase 1 で足した項目
+    schemaVersion: 2,
+    diagnosisId,
+    requestId,   // 重複登録の防止に使う（同じ診断の再送では同じ値）
+    answers: answers.slice(),
+    challenge,
+    challengeLabel: CHALLENGES[challenge].label,
+    consentResultEmail: true,
+    consentMarketing,
+    privacyNoticeVersion: CONFIG.PRIVACY_NOTICE_VERSION,
+    submittedAt: new Date().toISOString(),
+    source: "web_diagnosis",
+    // テスト用の送信先に送るときだけ付ける（本番の送信内容は変えない）
+    ...(TEST_MODE ? { testMode: true } : {})
   };
 
-  try {
-    if (CONFIG.GAS_URL) {
-      // text/plain で送ると、Apps Script 側で事前確認（CORS）が起きない
-      await fetch(CONFIG.GAS_URL, { method: "POST", mode: "no-cors",
-        headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) });
-    }
-  } catch (_) { /* 送信に失敗しても結果は見せる */ }
+  submitting = true;
+  $("submitBtn").disabled = true;
+  $("submitBtn").textContent = "送信中…";
+  track("lead_submit_attempt", { biz_type: bizType, score: result.total, challenge, consent_marketing: consentMarketing });
 
-  track("lead_submit", { biz_type: bizType, score: result.total });
-  renderAdvice();
-  $("gate").classList.add("hidden");
-  $("unlocked").classList.remove("hidden");
+  const r = await postLead(payload);
+  submitting = false;
   $("submitBtn").disabled = false;
   $("submitBtn").textContent = "改善ポイントを見る";
+  track("lead_submit_result", { result: r.state, mail: r.mail || undefined });
+
+  const did = `<span class="did">${esc(diagnosisId)}</span>`;
+  // 送っていない・断られたとき：フォームを残し（入力内容はそのまま）、エラーを出して再送できるようにする
+  if (r.state === "offline") return formError("インターネットにつながっていないようです。接続を確かめて、もう一度「改善ポイントを見る」を押してください。");
+  if (r.state === "rejected" && r.error === "busy") return formError("ただいま混み合っています。入力内容はそのまま残っています。少し待ってから、もう一度「改善ポイントを見る」を押してください。");
+  if (r.state === "rejected" && r.error === "conflict") return formError(`この診断は、別の内容ですでに受け付けている可能性があります。内容を変更したい場合は、お手数ですが下の「LINEで質問する」から診断番号 ${diagnosisId} をお知らせください。`);
+  if (r.state === "rejected" && r.error === "rate_limited") return formError("短い時間に登録が集中しているため、いまは受け付けられませんでした。入力内容はそのまま残っています。しばらく時間をおいてから、もう一度お試しください。");
+  if (r.state === "rejected" && r.error === "email") return formError("メールアドレスを確かめてください（例：name@example.com）", "fEmail");
+  if (r.state === "rejected" && r.error === "name") return formError("お名前を確かめてください（60文字まで）", "fName");
+  if (r.state === "rejected") return formError("登録を受け付けられませんでした。入力内容を確かめて、もう一度お試しください。うまくいかない場合は、下の LINE からお知らせください。");
+  if (r.state === "unconfigured") return formError(`ただいま登録を受け付けられないため、送信していません。入力内容はそのまま残っています。時間をおいてもう一度お試しいただくか、下の「LINEで質問する」から診断番号 ${diagnosisId} をお知らせください。`);
+
+  if (r.state === "test") {
+    // テストモードで送信先がない：何も送っていない。登録としては数えない
+    setStatus("warn", `<p><b>テストモードのため送信していません。</b>本番には届いていません。改善ポイントは下に表示しています。</p>`);
+    return unlock();
+  }
+
+  // 登録済みとして扱い、登録数（lead_submit）に数えるのは、GAS が ok:true を返したと読めたときだけ
+  if (r.state === "ok") {
+    submittedId = diagnosisId;
+    track("lead_submit", { biz_type: bizType, score: result.total });   // 以前からのイベント名（互換用）
+  }
+  if (r.state === "ok" && r.mail === "failed") {
+    setStatus("warn", `<p><b>登録は受け付けましたが、結果メールの送信に失敗しました。</b></p><p>この画面の内容が診断結果です。メールが必要な場合は、お手数ですが LINE で診断番号 ${did} をお知らせください。</p>`);
+  } else if (r.state === "ok" && r.mail === "limited") {
+    // 同じアドレスへの結果メールは1日1通まで：登録は受け付けたが、今回はメールを送っていない
+    setStatus("warn", `<p><b>登録を受け付けました。ただし、今回は診断結果のメールをお送りしていません。</b></p><p>同じメールアドレスにお送りできる診断結果のメールは1日1通までのためです。この画面の改善ポイントが今回の診断結果です。診断番号：${did}</p>`);
+  } else if (r.state === "ok" && (r.mail === "queued" || r.mail === "pending")) {
+    // まだ送っていない（1日の上限で翌日以降に回した、または順番待ち）
+    setStatus("warn", `<p><b>登録を受け付けました。診断結果のメールはまだお送りしていません。</b></p><p>${r.mail === "queued" ? "混み合っているため、翌日以降に順番にお送りします。" : "順番にお送りします（時間がかかる場合があります）。"}この画面の改善ポイントもあわせてご覧ください。診断番号：${did}</p>`);
+  } else if (r.state === "ok" && r.mail === "unknown") {
+    // 登録は確認できたが、結果メールが送れたかは GAS 側でも確認中（自動では送り直さない）
+    setStatus("ok", `<p><b>登録を受け付けました。</b>結果メールの送信状況はこちらで確認します。</p><p>しばらくしても届かない場合は、お手数ですが LINE で診断番号 ${did} をお知らせください。</p>`);
+  } else if (r.state === "ok") {
+    setStatus("ok", `<p><b>登録を受け付けました。</b>診断結果をメールでお送りします（数分かかることがあります）。</p><p>届かない場合は、迷惑メールフォルダをご確認ください。診断番号：${did}</p>`);
+  } else {
+    // 応答が読めない（CORS・時間切れ・JSONでない）：届いた可能性があるので、成功とも失敗とも言わない。登録数にも数えない
+    setStatus("warn", `<p><b>送信しましたが、登録できたかどうかをこの画面では確認できませんでした。</b></p><p>しばらくしても診断結果のメールが届かない場合は、お手数ですが LINE で診断番号 ${did} をお知らせください。改善ポイントは下に表示しています。</p>`);
+  }
+  unlock();
 });
+
+setConsultLinks();
+renderEnvBanner(applyPrivacyLink());
 </script>
 </body>
 </html>

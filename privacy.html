@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>プライバシーポリシー｜Re9 design</title>
+<meta name="description" content="Re9 design のウェブサイト、「伝わるデザイン」無料診断、お問い合わせフォームなどで取得する個人情報の取り扱いについて。">
+<style data-scope="page">
+  /* このページ（GitHub Pages の写し）だけの指定。配色・文字・余白は「伝わるデザイン」無料診断（index.html）にそろえる */
+  :root {
+    --bg: #f7f6f2; --ink: #222; --sub: #666; --accent: #2f6f62; --todo: #8a4b00; --todo-soft: #fff1d6;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Hiragino Sans", "Noto Sans JP", "Yu Gothic", sans-serif; line-height: 1.8; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; }
+  .draft { background: var(--todo-soft); border: 2px solid var(--todo); border-radius: 10px; padding: 10px 14px; margin-bottom: 16px; font-size: 14px; }
+  footer { text-align: center; font-size: 12px; color: var(--sub); margin-top: 32px; }
+  footer a { color: var(--accent); }
+</style>
+<style data-scope="policy">
+  /* ポリシー本文の指定。.re9-privacy の中だけに効く（WordPress のテーマに影響しない）。WordPress 用にもこのまま使う */
+  .re9-privacy {
+    --card: #ffffff; --ink: #222; --sub: #666; --line: #e3e0d8;
+    --accent: #2f6f62; --accent-soft: #e6f1ee; --todo: #8a4b00; --todo-soft: #fff1d6;
+    color: var(--ink); line-height: 1.8;
+  }
+  .re9-privacy * { box-sizing: border-box; }
+  .re9-privacy .brand { font-size: 13px; color: var(--sub); margin: 0 0 6px; }
+  .re9-privacy .brand b { color: var(--ink); }
+  .re9-privacy h1 { font-size: 24px; line-height: 1.4; margin: 8px 0 8px; }
+  .re9-privacy h2 { font-size: 18px; line-height: 1.5; margin: 0 0 10px; padding-left: 10px; border-left: 4px solid var(--accent); }
+  .re9-privacy h3 { font-size: 16px; margin: 16px 0 6px; }
+  .re9-privacy p { margin: 0 0 10px; }
+  .re9-privacy .lead { color: var(--sub); }
+  .re9-privacy .meta { font-size: 13px; color: var(--sub); }
+  .re9-privacy .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+  .re9-privacy ul, .re9-privacy ol { padding-left: 1.4em; margin: 0 0 10px; }
+  .re9-privacy li { margin-bottom: 6px; }
+  .re9-privacy a { color: var(--accent); text-underline-offset: 3px; overflow-wrap: anywhere; }
+  .re9-privacy a:focus-visible { outline: 3px solid #1d4ed8; outline-offset: 2px; }
+  /* 表は狭い画面では横に流さず、1件ずつ縦に並べる */
+  .re9-privacy table { width: 100%; border-collapse: collapse; font-size: 15px; margin: 0 0 10px; }
+  .re9-privacy th, .re9-privacy td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+  .re9-privacy th { background: var(--accent-soft); font-weight: 700; }
+  @media (max-width: 600px) {
+    .re9-privacy table, .re9-privacy thead, .re9-privacy tbody, .re9-privacy tr, .re9-privacy th, .re9-privacy td { display: block; width: 100%; }
+    .re9-privacy thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    .re9-privacy tr { border: 1px solid var(--line); border-radius: 8px; margin-bottom: 10px; overflow: hidden; }
+    .re9-privacy td { border: 0; border-top: 1px solid var(--line); }
+    .re9-privacy td:first-child { border-top: 0; background: var(--accent-soft); font-weight: 700; }
+    .re9-privacy td[data-label]::before { content: attr(data-label) "："; font-weight: 700; color: var(--sub); }
+  }
+  .re9-privacy .box { background: var(--accent-soft); border-radius: 10px; padding: 12px 14px; margin: 0 0 10px; }
+  .re9-privacy .todo { background: var(--todo-soft); color: var(--todo); font-weight: 700; padding: 0 4px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <!-- WordPress に貼るのは、この main の中身（npm run build:wp-privacy で、リンクを WordPress 用に直したものを作る） -->
+  <main class="re9-privacy">
+    <p class="brand"><b>Re9 design</b>（神奈川県伊勢原市）</p>
+    <h1>プライバシーポリシー</h1>
+    <p class="meta">制定日：2026年11月4日　／　版：2026-11-05</p>
+    <p class="lead">Re9 design（以下「当事業」）は、お客様からお預かりする個人情報を大切に扱い、個人情報の保護に関する法律（以下「個人情報保護法」）その他の関係法令とガイドラインを守って、次のとおり取り扱います。</p>
+
+    <nav class="card toc" aria-label="目次">
+      <ol>
+        <li><a href="#scope">このポリシーの対象</a></li>
+        <li><a href="#operator">事業者</a></li>
+        <li><a href="#collect">取得する情報</a></li>
+        <li><a href="#purpose">利用目的</a></li>
+        <li><a href="#mail">メールの種類と同意</a></li>
+        <li><a href="#retention">保存期間</a></li>
+        <li><a href="#security">安全管理のための措置</a></li>
+        <li><a href="#services">外部サービスの利用</a></li>
+        <li><a href="#third-party">第三者への提供</a></li>
+        <li><a href="#cookie">Cookie・アクセス解析・スパム対策</a></li>
+        <li><a href="#request">開示・訂正・削除などのご請求</a></li>
+        <li><a href="#contact">お問い合わせ窓口</a></li>
+        <li><a href="#revision">改定</a></li>
+      </ol>
+    </nav>
+
+    <section class="card" id="scope" aria-labelledby="h-scope">
+      <h2 id="h-scope">1. このポリシーの対象</h2>
+      <p>このポリシーは、次の場面で当事業が取得する個人情報に適用します。</p>
+      <ul>
+        <li>当事業のウェブサイト（<a href="https://re9design.net/portfolio/" data-site-href="officialSiteUrl" data-site-text="officialSiteUrl" rel="noopener">https://re9design.net/portfolio/</a>）の閲覧</li>
+        <li><a href="./" data-site-href="diagnosis">「伝わるデザイン」無料診断</a>（以下「無料診断」）</li>
+        <li>ウェブサイトのお問い合わせフォーム</li>
+        <li>無料相談のご予約、LINE公式アカウント、メールでのお問い合わせ</li>
+        <li>ご相談・ご依頼にともなうやり取り</li>
+      </ul>
+    </section>
+
+    <section class="card" id="operator" aria-labelledby="h-operator">
+      <h2 id="h-operator">2. 事業者</h2>
+      <table>
+        <tbody>
+          <tr><td>名称</td><td>Re9 design</td></tr>
+          <tr><td>代表者</td><td>川添 康大</td></tr>
+          <tr><td>所在地</td><td>神奈川県伊勢原市<br>詳しい所在地は、ご本人からご請求があった場合に、遅滞なくお知らせします（<a href="#contact">12. お問い合わせ窓口</a>）。</td></tr>
+          <tr><td>連絡先</td><td><a href="mailto:re9design.2025@gmail.com" data-site-mailto="contactEmail">re9design.2025@gmail.com</a></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card" id="collect" aria-labelledby="h-collect">
+      <h2 id="h-collect">3. 取得する情報</h2>
+      <table>
+        <thead><tr><th scope="col">場面</th><th scope="col">取得する情報</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>無料診断</td>
+            <td data-label="取得する情報">お名前、屋号・事業所名（任意）、メールアドレス、事業の種類、気になっている制作物（任意）、検討の時期（任意）、12の質問への回答と点数、いちばん解決したい課題、診断番号、診断結果メール・案内メールへの同意の有無と同意した説明文の版、送信日時、二重登録を防ぐための番号（推測できない形に変換して保存）、メールの送信状況</td>
+          </tr>
+          <tr>
+            <td>お問い合わせフォーム</td>
+            <td data-label="取得する情報">お問い合わせの種類、お名前、メールアドレス、会社名、郵便番号、都道府県、ご住所、電話番号、お問い合わせの内容、同意の有無、送信日時</td>
+          </tr>
+          <tr>
+            <td>無料相談の予約・LINE・メール</td>
+            <td data-label="取得する情報">お名前、メールアドレス、予約の日時、LINEの表示名、メッセージやメールの内容など、各サービスを通じてお知らせいただく情報</td>
+          </tr>
+          <tr>
+            <td>ご相談・ご依頼</td>
+            <td data-label="取得する情報">ご相談の内容、ご提案・お見積もり・ご契約・ご請求に必要な情報</td>
+          </tr>
+          <tr>
+            <td>ウェブサイトの閲覧</td>
+            <td data-label="取得する情報">サーバーが自動的に記録する情報（IPアドレス、ブラウザの種類、閲覧日時、閲覧したページなど）、お問い合わせフォームのスパム対策で使われる端末・ブラウザの情報（<a href="#cookie">10.</a>）</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="box">
+        <p>健康状態・病歴・障害など、法律上「要配慮個人情報」にあたる内容は、入力しないでください。当事業はこれらの情報の取得を目的としていません。</p>
+        <p>無料診断では、ご自身の回答をもとにした簡易的な診断を行います。診断の点数は、事業の成果や価値を表すものではありません。</p>
+      </div>
+    </section>
+
+    <section class="card" id="purpose" aria-labelledby="h-purpose">
+      <h2 id="h-purpose">4. 利用目的</h2>
+      <ol>
+        <li>無料診断の結果と改善ポイントを、メールでお届けするため</li>
+        <li>お問い合わせ・ご相談への回答と対応のため</li>
+        <li>ご相談時に、診断の内容を確かめ、ご提案・お見積もりを作成するため</li>
+        <li>無料相談のご予約と、無料診断のご登録を照らし合わせるため（ご予約時のメールアドレスで照合し、対応の状況を管理します）</li>
+        <li>案内メールの受け取りに同意いただいた方に、デザインや集客に役立つ情報をお届けするため（<a href="#mail">5. メールの種類と同意</a>）</li>
+        <li>ご依頼いただいた制作・サービスの提供、ご契約、ご請求、そのご連絡のため</li>
+        <li>不正な登録・スパム・大量の送信を防ぎ、送信状況を管理するため</li>
+        <li>個人を特定できない形に集計し、無料診断・ウェブサイト・サービスを改善するため</li>
+      </ol>
+      <p>当事業は、取得した個人情報を、上の目的の範囲を超えて利用しません。</p>
+    </section>
+
+    <section class="card" id="mail" aria-labelledby="h-mail">
+      <h2 id="h-mail">5. メールの種類と同意</h2>
+      <p>当事業がお送りするメールは次のとおりです。案内メールは、ほかの同意とは別に、ご自身で選んだ場合だけお送りします。</p>
+      <table>
+        <thead><tr><th scope="col">種類</th><th scope="col">内容</th><th scope="col">同意</th><th scope="col">止め方</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>診断結果メール</td>
+            <td data-label="内容">無料診断の結果と改善ポイント（1回）。同じメールアドレスへは1日1通までです。混み合っているときは、翌日以降にお送りすることがあります</td>
+            <td data-label="同意">診断フォームで「診断結果をメールで受け取る」に同意いただいた場合に送ります（診断結果のお届けに必要なため、必須）</td>
+            <td data-label="止め方">1回だけのお届けのため、止める手続きは不要です</td>
+          </tr>
+          <tr>
+            <td>お問い合わせへの返信</td>
+            <td data-label="内容">お問い合わせ・ご相談への回答とご連絡</td>
+            <td data-label="同意">お問い合わせフォームで、プライバシーポリシーに同意いただいたうえで送信された場合</td>
+            <td data-label="止め方">ご連絡が不要な場合はお知らせください</td>
+          </tr>
+          <tr>
+            <td>案内メール（任意）</td>
+            <td data-label="内容">デザインや集客に役立つ情報、無料相談のご案内（無料診断のご登録から約10日間で3通程度。無料相談をご予約いただいた場合は止めます）</td>
+            <td data-label="同意">診断フォームまたはお問い合わせフォームの「案内メールも受け取る」に、ご自身でチェックを入れた場合だけ送ります（初めはチェックが入っていません。チェックしなくても、診断やお問い合わせはご利用いただけます）</td>
+            <td data-label="止め方">各メールの「配信停止」のリンクから、またはお問い合わせ窓口へのご連絡で、いつでも止められます</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>案内メールには、送信者の名称・住所・連絡先と、配信停止の方法を記載します。</p>
+    </section>
+
+    <section class="card" id="retention" aria-labelledby="h-retention">
+      <h2 id="h-retention">6. 保存期間</h2>
+      <ul>
+        <li>無料診断・お問い合わせ・ご相談の情報は、ご相談・ご依頼への対応に必要な間保存し、その必要がなくなった情報は削除します。</li>
+        <li>ご依頼・ご契約・ご請求に関する情報は、法令で保存が定められた期間保存します。</li>
+        <li>案内メールの配信停止の記録は、配信を止めた状態を保つために必要な間保存します。</li>
+        <li>ご本人から削除のご請求があった場合は、<a href="#request">11.</a> のとおり対応します。</li>
+      </ul>
+      <p>お問い合わせフォームの内容は、メールで当事業に届くほか、公式サイトのサーバーに保存される場合があります。</p>
+    </section>
+
+    <section class="card" id="security" aria-labelledby="h-security">
+      <h2 id="h-security">7. 安全管理のための措置</h2>
+      <p>当事業は、個人データの漏えい・滅失・毀損を防ぐため、次の措置を講じています（2026年11月4日時点）。</p>
+      <h3>アクセスの管理</h3>
+      <ul>
+        <li>個人データを保管・送信する Google アカウントに、2段階認証を設定しています。</li>
+        <li>無料診断の情報を保管するスプレッドシートは、共有の範囲を「制限付き」にし、当事業以外の人が開けないようにしています。</li>
+        <li>公式サイト（WordPress）の管理者権限を持つのは、代表者だけです。</li>
+        <li>公式サイト（WordPress）のログインを保護するため、セキュリティのプラグイン（SiteGuard WP Plugin）を有効にしています。</li>
+      </ul>
+      <h3>外的環境の把握</h3>
+      <p>当事業は、日本の外（米国）にある事業者のサービスを利用しており、個人データが日本の外で取り扱われる場合があります。当事業は、米国の個人情報の保護に関する制度を確かめたうえで、これらのサービスを利用しています（<a href="#services">8. 外部サービスの利用</a>の(3)）。</p>
+      <p>個人データの漏えいなどが起きた、または起きたおそれがあるときは、法令に従って、個人情報保護委員会への報告とご本人への通知を行います。</p>
+    </section>
+
+    <section class="card" id="services" aria-labelledby="h-services">
+      <h2 id="h-services">8. 外部サービスの利用</h2>
+      <p>当事業は、次の外部サービスを利用しています。サービスごとに、個人情報がどこに送られ、何に使われるかを示します。各事業者による取り扱いの詳細は、各社のプライバシーポリシーをご覧ください。</p>
+      <h3>(1) 当事業の業務のために利用するサービス</h3>
+      <p>当事業が、ご提供いただいた個人情報の保管・処理・メール送信などのために利用するサービスです。</p>
+      <table>
+        <thead><tr><th scope="col">事業者（所在国）</th><th scope="col">サービスと、送られる・保管される情報</th><th scope="col">各社の取り扱い</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Google LLC（米国）</td>
+            <td data-label="サービスと情報">Google スプレッドシート・Google Apps Script（無料診断で入力された情報の受付と保管）、Gmail（診断結果メール・案内メール・ご連絡の送信と受信）</td>
+            <td data-label="各社の取り扱い"><a href="https://policies.google.com/privacy?hl=ja" rel="noopener">Google プライバシーポリシー</a></td>
+          </tr>
+          <tr>
+            <td>エックスサーバー株式会社（日本）</td>
+            <td data-label="サービスと情報">公式サイト（WordPress）のサーバー。お問い合わせフォームの受付と送信、サーバーのアクセス記録</td>
+            <td data-label="各社の取り扱い"><a href="https://www.xserver.co.jp/privacy/" rel="noopener">エックスサーバー 個人情報保護方針</a></td>
+          </tr>
+          <tr>
+            <td>LINEヤフー株式会社（日本）</td>
+            <td data-label="サービスと情報">LINE公式アカウント（お問い合わせ・ご連絡）</td>
+            <td data-label="各社の取り扱い"><a href="https://www.lycorp.co.jp/ja/company/privacypolicy/" rel="noopener">LINEヤフー プライバシーポリシー</a></td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>(2) ページを開いたとき・ご予約のときに、外部の事業者へ直接送られる情報</h3>
+      <p>次の情報は、当事業を経由せず、お使いの端末から各事業者へ直接送られます。</p>
+      <table>
+        <thead><tr><th scope="col">事業者（所在国）</th><th scope="col">場面と、送られる情報</th><th scope="col">各社の取り扱い</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Cloudflare, Inc.（米国）</td>
+            <td data-label="場面と情報">公式サイトのお問い合わせフォームのスパム対策（Cloudflare Turnstile）。不正な送信を見分けるために、端末・ブラウザの情報が送られます</td>
+            <td data-label="各社の取り扱い"><a href="https://www.cloudflare.com/ja-jp/privacypolicy/" rel="noopener">Cloudflare プライバシーポリシー</a></td>
+          </tr>
+          <tr>
+            <td>GitHub, Inc.（米国）</td>
+            <td data-label="場面と情報">無料診断のページの配信。ページを開いた端末の情報（IPアドレスなど）が送られます。無料診断で入力された内容は、GitHub には送られません</td>
+            <td data-label="各社の取り扱い"><a href="https://docs.github.com/ja/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">GitHub のプライバシーに関する声明</a></td>
+          </tr>
+          <tr>
+            <td>Google LLC（米国）</td>
+            <td data-label="場面と情報">無料相談のご予約（Google カレンダーの予約ページ）。ご予約の際に入力されたお名前・メールアドレスなどが送られ、当事業のカレンダーに予約として届きます</td>
+            <td data-label="各社の取り扱い"><a href="https://policies.google.com/privacy?hl=ja" rel="noopener">Google プライバシーポリシー</a></td>
+          </tr>
+        </tbody>
+      </table>
+      <h3 id="foreign">(3) 日本の外での取り扱い（外国にある第三者への提供）</h3>
+      <p>無料診断でご提供いただく情報（お名前、メールアドレス、回答など）は、Google LLC（米国）のスプレッドシート・Apps Script・Gmail で保管・送信します。当事業が利用しているのは個人向けの Google アカウントで、Google の規約では、Google がサービスの運営・改善や不正利用の検知のために、保存されたコンテンツを処理するとされています。このため当事業は、これを外国にある第三者への個人データの提供として扱い、ご本人の同意をいただいたうえで行います（個人情報保護法28条1項）。</p>
+      <p>お問い合わせフォームの内容も、当事業の Gmail に届いて保管されるため、同じように扱い、お問い合わせフォームで同意をいただいたうえで行います。</p>
+      <p>同意をいただく前に、次の情報をお知らせします。</p>
+      <table>
+        <thead><tr><th scope="col">項目</th><th scope="col">内容</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>提供先の国の名称</td>
+            <td data-label="内容">米国（Google LLC の所在国）。Google のサーバーは世界各地にあり、米国以外の国で処理されることもあります。</td>
+          </tr>
+          <tr>
+            <td>米国の個人情報の保護に関する制度</td>
+            <td data-label="内容">個人情報の保護に関する包括的な連邦法はなく、電子通信プライバシー法（ECPA）、医療保険の携行性と責任に関する法律（HIPAA）、グラム・リーチ・ブライリー法（GLBA）など、分野ごとの法令があります。州ごとの法令もあります。EU の十分性認定は受けていません。APEC の越境プライバシールール（CBPR）システムには、2012年7月25日から参加しています。詳しくは、<a href="https://www.ppc.go.jp/personalinfo/legal/kaiseihogohou/#gaikoku" rel="noopener">個人情報保護委員会「外国における個人情報の保護に関する制度等の調査」</a>（アメリカ合衆国）をご覧ください。</td>
+          </tr>
+          <tr>
+            <td>Google が講じている措置</td>
+            <td data-label="内容">通信の暗号化、個人情報にアクセスできる担当者の限定と守秘義務、EU-米国データ・プライバシー・フレームワークの認定（<a href="https://policies.google.com/privacy/frameworks?hl=ja" rel="noopener">Google プライバシーポリシー</a>による）</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>当事業が確かめられたのは、Google が公開している内容の範囲までです。</p>
+    </section>
+
+    <section class="card" id="third-party" aria-labelledby="h-third-party">
+      <h2 id="h-third-party">9. 第三者への提供</h2>
+      <p>当事業は、次の場合を除き、あらかじめご本人の同意を得ずに、個人データを第三者に提供しません。</p>
+      <ul>
+        <li>法令に基づく場合</li>
+        <li>人の生命・身体・財産を守るために必要で、ご本人の同意を得ることが難しい場合</li>
+        <li>公衆衛生の向上や、児童の健全な育成のために特に必要で、ご本人の同意を得ることが難しい場合</li>
+        <li>国の機関・地方公共団体やその委託を受けた者が、法令の定める事務を行うことに協力する必要があり、ご本人の同意を得ることでその事務に支障が出るおそれがある場合</li>
+        <li>そのほか、個人情報保護法で認められている場合</li>
+      </ul>
+      <p>当事業は、個人データを他の事業者と共同で利用することはありません。<a href="#services">8.</a> の(1)の米国の事業者のサービスの利用は、外国にある第三者への提供として、<a href="#foreign">8章(3)</a>のとおりご本人の同意をいただいたうえで行います。</p>
+    </section>
+
+    <section class="card" id="cookie" aria-labelledby="h-cookie">
+      <h2 id="h-cookie">10. Cookie・アクセス解析・スパム対策</h2>
+      <p>無料診断のページでは、アクセス解析ツールや広告のためのタグを使っていません。診断の進み具合を、ページの中だけで記録する仕組みがありますが、お名前やメールアドレスなど、個人を特定できる情報は含みません。</p>
+      <p>公式サイトでは、2026年11月4日時点で、アクセス解析ツールや広告のためのタグを使っていません。お問い合わせフォームのスパム対策として、Cloudflare Turnstile を使っています。これは、不正な送信を見分けるために、端末・ブラウザの情報を利用します。</p>
+      <p>アクセス解析などを新たに使う場合は、このポリシーを改定してお知らせします。</p>
+    </section>
+
+    <section class="card" id="request" aria-labelledby="h-request">
+      <h2 id="h-request">11. 開示・訂正・削除などのご請求</h2>
+      <p>ご本人から、当事業が保有する個人データについて、次のご請求があった場合は、ご本人であることを確かめたうえで、法令に従って遅滞なく対応します。</p>
+      <ul>
+        <li>利用目的のお知らせ</li>
+        <li>開示（第三者への提供の記録を含みます）</li>
+        <li>内容の訂正・追加・削除</li>
+        <li>利用の停止・消去</li>
+        <li>第三者への提供の停止</li>
+      </ul>
+      <p>ご請求は、<a href="#contact">12. お問い合わせ窓口</a>のメールアドレスへお送りください。ご本人であることは、ご登録・お問い合わせの際のメールアドレスへの返信によって確かめます。必要な場合は、追加の確認をお願いすることがあります。</p>
+      <p>無料診断の情報の削除は、届いたメールへの返信か、LINE公式アカウントでもお申し出いただけます。案内メールは、各メールの「配信停止」のリンクからいつでも止められます。</p>
+      <p>法令により対応できない場合は、その理由をお知らせします。</p>
+    </section>
+
+    <section class="card" id="contact" aria-labelledby="h-contact">
+      <h2 id="h-contact">12. お問い合わせ窓口</h2>
+      <p>個人情報の取り扱いに関するお問い合わせ・ご請求・苦情は、次の窓口で受け付けます。</p>
+      <table>
+        <tbody>
+          <tr><td>窓口</td><td>Re9 design　個人情報のお問い合わせ窓口（担当：川添 康大）</td></tr>
+          <tr><td>メール</td><td><a href="mailto:re9design.2025@gmail.com" data-site-mailto="contactEmail">re9design.2025@gmail.com</a></td></tr>
+          <tr><td>お問い合わせフォーム</td><td><a href="https://re9design.net/portfolio/#CONTACT" data-site-href="officialContactUrl" rel="noopener">公式サイトのお問い合わせフォーム</a></td></tr>
+          <tr><td>LINE</td><td><a href="./" data-site-href="diagnosis">無料診断のページ</a>の「LINEで質問する」からご連絡いただけます</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card" id="revision" aria-labelledby="h-revision">
+      <h2 id="h-revision">13. 改定</h2>
+      <p>当事業は、法令の改正やサービスの変更に合わせて、このポリシーを改定することがあります。改定したときは、このページで改定日と版を更新してお知らせします。利用目的を変更する場合は、法令に従って、事前にお知らせまたは公表します。</p>
+    </section>
+  </main>
+  <footer>
+    <p>Re9 design　川添 康大（神奈川県伊勢原市）</p>
+    <p><a href="./" data-site-href="diagnosis">無料診断へ</a>　／　<a href="https://re9design.net/portfolio/" data-site-href="officialSiteUrl" rel="noopener">公式サイトへ</a></p>
+  </footer>
+</div>
+<!-- URL・連絡先は site-config.js から入れる（読めなかったときも、上に書いてある URL で開ける） -->
+<script src="site-config.js"></script>
+<script>
+(function () {
+  var S = window.RE9_SITE;
+  if (!S) return;
+  var safe = function (u) { try { var x = new URL(u); return x.protocol === "https:" ? x.href : ""; } catch (e) { return ""; } };
+  // このページ（GitHub Pages の写し）からの無料診断へのリンクは、同じ場所の index（./）を使う
+  document.querySelectorAll("[data-site-href]").forEach(function (a) {
+    var key = a.getAttribute("data-site-href");
+    if (key === "diagnosis") return;
+    var u = safe(S[key]);
+    if (u) a.href = u;
+  });
+  document.querySelectorAll("[data-site-text]").forEach(function (el) {
+    var u = safe(S[el.getAttribute("data-site-text")]);
+    if (u) el.textContent = u;
+  });
+  document.querySelectorAll("[data-site-mailto]").forEach(function (a) {
+    var m = String(S[a.getAttribute("data-site-mailto")] || "");
+    if (/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(m)) { a.href = "mailto:" + m; a.textContent = m; }
+  });
+})();
+</script>
+</body>
+</html>
