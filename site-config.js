@@ -13,9 +13,9 @@
     location: "神奈川県伊勢原市",
     contactEmail: "re9design.2025@gmail.com",
 
-    // 公式サイト（WordPress）。今は /portfolio/ に置いている。https://re9design.net/ に移したら書きかえる
-    officialSiteUrl: "https://re9design.net/portfolio/",
-    officialContactUrl: "https://re9design.net/portfolio/#CONTACT",
+    // 公式サイト（WordPress）。2026-11-07 に /portfolio/ から https://re9design.net/ へ引っ越した（WordPress 本体は /portfolio/ のまま、表示の住所だけルート）
+    officialSiteUrl: "https://re9design.net/",
+    officialContactUrl: "https://re9design.net/#CONTACT",
 
     // 無料診断（GitHub Pages）
     diagnosisUrl: "https://yasuhiro-k120.github.io/re9design-shindan/",
@@ -41,8 +41,8 @@
       githubPagesPath: "privacy.html",
       githubPagesPublished: true,
       // 公式サイト（WordPress）の固定ページ。予定の URL。公開して開けることを確かめたら true
-      // （WordPress が /portfolio/ にあるあいだは、固定ページの URL は /portfolio/privacy-policy/ になる点に注意）
-      wordpressUrl: "https://re9design.net/portfolio/privacy-policy/",
+      // （引っ越し前の /portfolio/privacy-policy/ は、ここへ 301 で転送している）
+      wordpressUrl: "https://re9design.net/privacy-policy/",
       wordpressPublished: true
     }
   };
