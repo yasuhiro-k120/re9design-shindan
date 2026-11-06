@@ -5,39 +5,56 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>伝わるデザイン無料診断</title>
 <meta name="description" content="起業したての方・介護や看護の事業所・個人事業主の方へ。12の質問で、ロゴ・名刺・チラシ・ホームページの「伝わる力」を無料で診断します。">
+<!-- 書体：公式サイトと同じ Noto Sans JP を優先し、なければ端末の書体（ヒラギノ・游ゴシック）で表示する。
+     Google Fonts は読み込まない（外部への送信になるため。使う場合はプライバシーポリシーに追記してから） -->
 <style>
+  /* 色は公式サイト（re9design.net）の Elementor 全体設定に合わせる
+     赤 #CB0000（CTA）・文字 #494949・補足 #696969・背景 #F9F9F9／#F5F5F5・線 #D1D1D1・濃い緑 #213224
+     赤は「押すところ」「必須」「英字の小見出し」にだけ使い、ほかの強調は濃い緑（--deep）にする。点数の棒の色（良い・ふつう・弱い）は意味の色なので別に持つ */
   :root {
-    --bg: #f7f6f2; --card: #ffffff; --ink: #222; --sub: #666; --line: #e3e0d8;
-    --accent: #2f6f62; --accent-soft: #e6f1ee; --good: #2b8a3e; --mid: #d99a00; --bad: #c8553d;
+    --bg: #F9F9F9; --card: #ffffff; --ink: #494949; --strong: #222222; --sub: #696969; --line: #D1D1D1; --panel: #F5F5F5;
+    --accent: #CB0000; --accent-dark: #A30000; --accent-soft: #FBEAEA; --deep: #213224;
+    --good: #2b8a3e; --good-soft: #EAF5EC; --mid: #B87F00; --bad: #B4472F;
     --line-green: #06c755; --warn-soft: #fdf4e3; --bad-soft: #fbece8;
   }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--ink);
-    font-family: "Hiragino Sans", "Noto Sans JP", "Yu Gothic", sans-serif; line-height: 1.7; }
+    font-family: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif; line-height: 1.8; }
   .wrap { max-width: 640px; margin: 0 auto; padding: 24px 16px 64px; }
-  .badge { display: inline-block; font-size: 12px; color: var(--accent); background: var(--accent-soft);
+  .eyebrow { font-family: "Poppins", "Noto Sans JP", sans-serif; font-weight: 600; font-size: 12px; letter-spacing: .14em;
+    color: var(--accent); margin: 0 0 4px; }
+  .badge { display: inline-block; font-size: 12px; color: var(--accent-dark); background: var(--accent-soft);
     padding: 2px 10px; border-radius: 99px; font-weight: 700; }
+  h1, h2, h3 { color: var(--strong); }
+  .nw { display: inline-block; }   /* 言葉の途中で改行しない（見出し用） */
   h1 { font-size: 24px; line-height: 1.4; margin: 12px 0 8px; }
   h2 { font-size: 18px; margin: 0 0 12px; }
   h3 { font-size: 16px; margin: 14px 0 4px; }
   h1:focus, h2:focus, .q:focus { outline: none; }
   p.lead { color: var(--sub); margin: 0 0 20px; }
   .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
-  .btn { display: block; width: 100%; border: 0; border-radius: 10px; padding: 14px; font-size: 16px; font-weight: 700;
-    background: var(--accent); color: #fff; cursor: pointer; text-align: center; text-decoration: none; font-family: inherit; }
-  .btn.line { background: var(--line-green); }
-  .btn.ghost { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
+  /* ボタンは公式サイトと同じカプセル形・右に »（ファーストビューの「無料で伝わる力を診断する」と同じ形） */
+  .btn { display: block; width: 100%; border: 0; border-radius: 999px; padding: 15px 20px; font-size: 16px; font-weight: 700;
+    background: var(--accent); color: #fff; cursor: pointer; text-align: center; text-decoration: none; font-family: inherit;
+    min-height: 48px; transition: background-color .15s; }
+  .btn:not(:disabled):hover { background: var(--accent-dark); }
+  .btn.line { background: var(--line-green); color: #fff; }
+  .btn.line:not(:disabled):hover { background: #05b04b; }
+  .btn.ghost { background: #fff; color: var(--accent); border: 2px solid var(--accent); }
+  .btn.ghost:not(:disabled):hover { background: var(--accent-soft); }
   .btn:disabled { opacity: .4; cursor: default; }
   .btn + .btn { margin-top: 10px; }
+  .btn::after { content: "»"; margin-left: .6em; font-weight: 700; }
+  #retryBtn::after { content: none; }
   .btn:focus-visible, .choice:focus-visible, .back:focus-visible, input:focus-visible, select:focus-visible {
     outline: 3px solid #1d4ed8; outline-offset: 2px; }
   .hidden { display: none; }
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .progress { height: 6px; background: var(--line); border-radius: 99px; overflow: hidden; margin-bottom: 8px; }
-  .progress > div { height: 100%; background: var(--accent); width: 0; transition: width .3s; }
+  .progress > div { height: 100%; background: var(--deep); width: 0; transition: width .3s; }
   .step { font-size: 13px; color: var(--sub); margin-bottom: 16px; }
-  .axis { font-size: 13px; color: var(--accent); font-weight: 700; }
-  .q { font-size: 18px; font-weight: 700; margin: 4px 0 20px; }
+  .axis { font-size: 13px; color: var(--deep); font-weight: 700; }
+  .q { font-size: 18px; font-weight: 700; margin: 4px 0 20px; color: var(--strong); line-height: 1.6; }
   .choices { display: grid; gap: 10px; }
   .choice { border: 2px solid var(--line); background: var(--card); border-radius: 10px; padding: 14px; font-size: 16px;
     text-align: left; cursor: pointer; color: var(--ink); font-family: inherit; }
@@ -49,7 +66,7 @@
   input[aria-invalid="true"] { border-color: var(--bad); }
   label { font-size: 14px; font-weight: 700; }
   .opt { font-weight: 400; color: var(--sub); font-size: 12px; }
-  .req { font-weight: 700; color: var(--bad); font-size: 12px; }
+  .req { font-weight: 700; color: var(--accent); font-size: 12px; }
   .checks { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; margin: 6px 0 14px; border: 0; padding: 0; }
   .checks legend { font-size: 14px; font-weight: 700; padding: 0; margin-bottom: 4px; }
   .checks label { font-weight: 400; display: flex; gap: 6px; align-items: center; }
@@ -58,7 +75,7 @@
   .check { display: flex; gap: 8px; align-items: flex-start; font-weight: 400; margin: 10px 0; }
   .check input { width: 20px; height: 20px; margin: 3px 0 0; flex: none; }
   .score { text-align: center; }
-  .score .num { font-size: 56px; font-weight: 800; color: var(--accent); line-height: 1.1; }
+  .score .num { font-size: 56px; font-weight: 700; color: var(--deep); line-height: 1.1; }
   .score .type { font-size: 20px; font-weight: 700; margin-top: 4px; }
   .bar-row { margin: 10px 0; }
   .bar-row .head { display: flex; justify-content: space-between; font-size: 14px; gap: 8px; }
@@ -72,7 +89,7 @@
   .note { font-size: 12px; color: var(--sub); }
   .err { color: var(--bad); font-size: 14px; margin: 0 0 10px; }
   .status { border-radius: 10px; padding: 12px 14px; font-size: 14px; margin-bottom: 16px; border: 1px solid var(--line); }
-  .status.ok { background: var(--accent-soft); border-color: var(--accent); }
+  .status.ok { background: var(--good-soft); border-color: var(--good); }
   .status.warn { background: var(--warn-soft); border-color: var(--mid); }
   .status.bad { background: var(--bad-soft); border-color: var(--bad); }
   .status p { margin: 0 0 6px; }
@@ -86,6 +103,7 @@
   .profile p:last-child { margin-bottom: 0; }
   .did { font-family: ui-monospace, Menlo, Consolas, monospace; font-weight: 700; letter-spacing: .02em; }
   footer { text-align: center; font-size: 12px; color: var(--sub); margin-top: 32px; }
+  a { color: var(--accent-dark); text-underline-offset: 3px; }
   footer p { margin: 2px 0; }
   .locked .blur { filter: blur(5px); user-select: none; pointer-events: none; }
   /* テストモード・公開準備の表示（本番の公開ページでは出ない） */
@@ -93,6 +111,9 @@
     font-size: 14px; margin-bottom: 16px; }
   .env-banner p { margin: 0 0 4px; }
   .env-banner p:last-child { margin-bottom: 0; }
+  /* スパム対策（Cloudflare Turnstile）の確認欄。サイトキーを設定したときだけ出る */
+  .captcha { margin: 12px 0 4px; min-height: 65px; }
+  .captcha .note { margin: 4px 0 0; }
   @media (prefers-reduced-motion: reduce) { .progress > div { transition: none; } }
 </style>
 </head>
@@ -103,9 +124,10 @@
 
   <!-- スタート画面 -->
   <section id="start" aria-labelledby="startTitle">
+    <p class="eyebrow" lang="en">FREE DESIGN DIAGNOSIS</p>
     <p class="brand"><b>Re9design</b>（神奈川県伊勢原市）の無料診断</p>
     <span class="badge">無料・約2分・登録不要で開始</span>
-    <h1 id="startTitle" tabindex="-1">あなたの事業の「伝わるデザイン」診断</h1>
+    <h1 id="startTitle" tabindex="-1"><span class="nw">あなたの事業の</span><span class="nw">「伝わるデザイン」診断</span></h1>
     <p class="lead">ロゴ・名刺・チラシ・ホームページ。お客様や利用者に、あなたの良さはちゃんと伝わっていますか？12の質問で、強いところと直すと効果が出やすいところが分かります。</p>
     <div class="card">
       <label for="bizType">あなたの事業に近いものを選んでください</label>
@@ -223,6 +245,10 @@
             <!-- 診断結果メール（必須）と案内メール（任意）の同意は分ける。案内メールは初めからチェックを入れない -->
             <label class="check"><input type="checkbox" id="fConsent" aria-describedby="privacyText formErr"><span>プライバシーポリシーと上の内容（米国の事業者への提供を含む）に同意して、診断結果をメールで受け取る <span class="req">必須</span></span></label>
             <label class="check"><input type="checkbox" id="fAgree"><span>デザインや集客に役立つ情報の案内メール（登録から約10日間で3通程度・いつでも停止できます）も受け取る <span class="opt">（任意）</span></span></label>
+          </div>
+          <div id="captchaWrap" class="captcha hidden">
+            <div id="captchaBox"></div>
+            <p class="note" id="captchaNote">迷惑な送信を防ぐため、Cloudflare Turnstile で確認しています。</p>
           </div>
           <p class="err hidden" id="formErr" role="alert"></p>
           <button class="btn" type="submit" id="submitBtn" style="margin-top:12px">改善ポイントを見る</button>
@@ -402,10 +428,100 @@ let submitting = false, submittedId = "", choiceLock = false;
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
+// ===== 計測 =====
+// 1. ページの中の記録：window.dataLayer に { event, ... } を積む（GTM を入れたときはこれを使う）。個人情報は入れない
+// 2. GA4：site-config.js の analytics.ga4MeasurementId があり、テストモードでないときだけ gtag.js を読み込んで送る
+//    gtag.js は別の名前の箱（re9GtagLayer）を使うので、1. の記録が GA4 に二重に届くことはない
+//    GA4 へは決まった項目（GA4_PARAMS）だけを送る。診断番号・お名前・メールアドレスは送らない
+const GA4_EVENTS = ["diagnosis_view", "diagnosis_start", "challenge_select", "diagnosis_complete", "diagnosis_restart",
+  "lead_submit_attempt", "lead_submit_invalid", "lead_submit_result", "lead_submit", "booking_click", "line_click"];
+const GA4_PARAMS = ["biz_type", "score", "challenge", "weak_axes", "placement", "registered", "result", "mail", "field", "consent_marketing"];
+const GA4_ID_PATTERN = /^G-[A-Z0-9]{4,20}$/;
+let ga4 = null;   // GA4 を使うときだけ、送るための関数が入る
+
+function ga4Id() {
+  const A = window.RE9_SITE && window.RE9_SITE.analytics;
+  const id = A && typeof A.ga4MeasurementId === "string" ? A.ga4MeasurementId.trim() : "";
+  return GA4_ID_PATTERN.test(id) ? id : "";
+}
+
+function setupGa4() {
+  const id = ga4Id();
+  if (!id || TEST_MODE) return "";
+  window.re9GtagLayer = window.re9GtagLayer || [];
+  const gtag = function () { window.re9GtagLayer.push(arguments); };
+  gtag("js", new Date());
+  // 送るページの URL から、検索部分（?…）とページ内の位置（#…）を除く（念のため。個人情報は URL に載せていない）
+  const loc = window.location;
+  gtag("config", id, { page_location: loc.origin + loc.pathname, page_referrer: document.referrer ? document.referrer.split(/[?#]/)[0] : undefined });
+  const sc = document.createElement("script");
+  sc.async = true;
+  sc.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(id) + "&l=re9GtagLayer";
+  document.head.appendChild(sc);
+  ga4 = (name, params) => {
+    if (!GA4_EVENTS.includes(name)) return;
+    const p = {};
+    GA4_PARAMS.forEach(k => { if (params && params[k] !== undefined && params[k] !== "") p[k] = params[k]; });
+    gtag("event", name, p);
+  };
+  return id;
+}
+
 function track(name, params) {
-  // GA4（GTM）を入れたら、dataLayer のイベントとして計測できる。個人情報は入れない
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({ event: name, diagnosis_id: diagnosisId || undefined, ...params });
+  if (ga4) { try { ga4(name, params || {}); } catch (e) { /* 計測の失敗で診断を止めない */ } }
+}
+
+// ===== スパム対策（Cloudflare Turnstile） =====
+// site-config.js の turnstile.siteKey があるときだけ、結果画面のフォームに確認欄を出す（読み込むのも結果画面に来てから）。
+// 確認の結果（トークン）は1回しか使えないので、送るたびに作り直す。本当の判定は GAS 側で行う（秘密キーはブラウザに置かない）
+const TURNSTILE_SCRIPT = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+const captcha = { key: "", state: "off", widget: null, token: "" };   // state: off / loading / ready / failed
+
+function turnstileKey() {
+  const T = window.RE9_SITE && window.RE9_SITE.turnstile;
+  const k = T && typeof T.siteKey === "string" ? T.siteKey.trim() : "";
+  return /^[0-9A-Za-z_-]{10,100}$/.test(k) ? k : "";
+}
+
+function captchaFailed(msg) {
+  captcha.state = "failed"; captcha.token = "";
+  $("captchaNote").textContent = msg;
+}
+
+function renderCaptcha() {
+  if (!captcha.key || captcha.widget !== null) return;
+  try {
+    captcha.widget = window.turnstile.render("#captchaBox", {
+      sitekey: captcha.key, action: "diagnosis", language: "ja", appearance: "always",
+      callback: t => { captcha.token = String(t || ""); captcha.state = "ready"; },
+      "expired-callback": () => { captcha.token = ""; },
+      "error-callback": () => { captcha.token = ""; $("captchaNote").textContent = "確認がうまくいきませんでした。少し待つと自動でやり直します。直らない場合は、ページを再読み込みしてください。"; }
+    });
+    captcha.state = "ready";
+  } catch (e) {
+    captchaFailed("確認欄を表示できませんでした。ページを再読み込みしてください。直らない場合は、下の LINE からご連絡ください。");
+  }
+}
+
+function loadCaptcha() {
+  if (!captcha.key || captcha.state !== "off") return;
+  $("captchaWrap").classList.remove("hidden");
+  if (window.turnstile) { renderCaptcha(); return; }
+  captcha.state = "loading";
+  window.re9TurnstileReady = () => renderCaptcha();
+  const sc = document.createElement("script");
+  sc.src = TURNSTILE_SCRIPT + "&onload=re9TurnstileReady";
+  sc.async = true; sc.defer = true;
+  sc.onerror = () => captchaFailed("確認欄を読み込めませんでした。通信状態を確かめて、ページを再読み込みしてください。直らない場合は、下の LINE からご連絡ください。");
+  document.head.appendChild(sc);
+}
+
+// 送信のあと（成功以外）に、次の送信のための確認をやり直す
+function resetCaptcha() {
+  captcha.token = "";
+  if (captcha.widget !== null && window.turnstile) { try { window.turnstile.reset(captcha.widget); } catch (e) { /* 次の送信で確かめる */ } }
 }
 
 // 診断ごとの番号（顧客IDとは別。個人情報は含まない）
@@ -488,6 +604,7 @@ function renderResult() {
   $("unlocked").classList.add("hidden");
   $("formErr").classList.add("hidden");
   show("result", "resultTitle");
+  loadCaptcha();
   track("diagnosis_complete", { biz_type: bizType, score: result.total, challenge, weak_axes: result.weak.join(",") });
 }
 
@@ -597,6 +714,7 @@ function renderEnvBanner(privacyOk) {
   const lines = [`<p><b>テストモード</b>（${esc(TEST_REASON)}）：登録しても本番には送信されません。</p>`,
     SIMULATE ? `<p>送信失敗の表示を再現中（${esc(SIMULATE)}）：送信しません</p>`
       : target ? `<p>送信先：テスト用の送信先（TEST_GAS_URL）</p>` : `<p>送信先：なし（送信しません）</p>`];
+  lines.push(`<p>GA4：${ga4Id() ? "測定IDあり（テストモードでは読み込まない）" : "未設定"}／Turnstile：${captcha.key ? "サイトキーあり（確認欄を表示）" : "未設定"}</p>`);
   if (!privacyOk) lines.push(`<p><b>公開準備未完了：</b>プライバシーポリシーのURL（CONFIG.PRIVACY_URL）が未設定です（site-config.js で公開済みにしたリンク先もありません）。` +
     `<a href="privacy.html" target="_blank" rel="noopener">下書き（privacy.html）を見る</a></p>`);
   el.innerHTML = lines.join("");
@@ -607,6 +725,7 @@ function startDiagnosis() {
   answers = []; idx = 0; challenge = ""; result = null; submittedId = "";
   diagnosisId = newDiagnosisId();
   requestId = newRequestId();
+  resetCaptcha();   // 前の診断で使った確認結果は使えない
   renderQ(); show("quiz", "qText");
   track("diagnosis_start", { biz_type: bizType });
 }
@@ -648,6 +767,11 @@ $("leadForm").addEventListener("submit", async e => {
   // サーバー（GAS）と同じ形だけを受け付ける。最終的な確認はサーバー側で行う
   if (!/^[A-Za-z0-9][A-Za-z0-9._%+-]*@[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)*\.[A-Za-z]{2,}$/.test(email) || email.length > 254) { track("lead_submit_invalid", { field: "email" }); return formError("メールアドレスを確かめてください（例：name@example.com）", "fEmail"); }
   if (!$("fConsent").checked) { track("lead_submit_invalid", { field: "consent" }); return formError("診断結果をお送りするため、「同意して受け取る」にチェックを入れてください", "fConsent"); }
+  if (captcha.key && !captcha.token) {
+    track("lead_submit_invalid", { field: "captcha" });
+    return formError(captcha.state === "failed" ? $("captchaNote").textContent
+      : "確認欄の確認が終わるまで、少しお待ちください。チェックボックスが出ている場合は、チェックを入れてから「改善ポイントを見る」を押してください。");
+  }
   $("formErr").classList.add("hidden");
   ["fName", "fEmail", "fConsent"].forEach(f => $(f).removeAttribute("aria-invalid"));
 
@@ -676,6 +800,8 @@ $("leadForm").addEventListener("submit", async e => {
     privacyNoticeVersion: CONFIG.PRIVACY_NOTICE_VERSION,
     submittedAt: new Date().toISOString(),
     source: "web_diagnosis",
+    // スパム対策の確認結果（設定したときだけ）。GAS が Cloudflare に問い合わせて確かめる。シートには残さない
+    ...(captcha.key ? { turnstileToken: captcha.token } : {}),
     // テスト用の送信先に送るときだけ付ける（本番の送信内容は変えない）
     ...(TEST_MODE ? { testMode: true } : {})
   };
@@ -690,6 +816,7 @@ $("leadForm").addEventListener("submit", async e => {
   $("submitBtn").disabled = false;
   $("submitBtn").textContent = "改善ポイントを見る";
   track("lead_submit_result", { result: r.state, mail: r.mail || undefined });
+  if (r.state !== "ok") resetCaptcha();   // 確認結果は1回しか使えない
 
   const did = `<span class="did">${esc(diagnosisId)}</span>`;
   // 送っていない・断られたとき：フォームを残し（入力内容はそのまま）、エラーを出して再送できるようにする
@@ -697,6 +824,8 @@ $("leadForm").addEventListener("submit", async e => {
   if (r.state === "rejected" && r.error === "busy") return formError("ただいま混み合っています。入力内容はそのまま残っています。少し待ってから、もう一度「改善ポイントを見る」を押してください。");
   if (r.state === "rejected" && r.error === "conflict") return formError(`この診断は、別の内容ですでに受け付けている可能性があります。内容を変更したい場合は、お手数ですが下の「LINEで質問する」から診断番号 ${diagnosisId} をお知らせください。`);
   if (r.state === "rejected" && r.error === "rate_limited") return formError("短い時間に登録が集中しているため、いまは受け付けられませんでした。入力内容はそのまま残っています。しばらく時間をおいてから、もう一度お試しください。");
+  if (r.state === "rejected" && r.error === "captcha") return formError("迷惑な送信を防ぐための確認ができませんでした。入力内容はそのまま残っています。確認欄の表示が変わるまで待ってから、もう一度「改善ポイントを見る」を押してください。");
+  if (r.state === "rejected" && r.error === "captcha_unavailable") return formError(`ただいま確認の仕組みにつながらず、受け付けられませんでした。入力内容はそのまま残っています。時間をおいてもう一度お試しいただくか、下の「LINEで質問する」から診断番号 ${diagnosisId} をお知らせください。`);
   if (r.state === "rejected" && r.error === "email") return formError("メールアドレスを確かめてください（例：name@example.com）", "fEmail");
   if (r.state === "rejected" && r.error === "name") return formError("お名前を確かめてください（60文字まで）", "fName");
   if (r.state === "rejected") return formError("登録を受け付けられませんでした。入力内容を確かめて、もう一度お試しください。うまくいかない場合は、下の LINE からお知らせください。");
@@ -734,7 +863,10 @@ $("leadForm").addEventListener("submit", async e => {
 });
 
 setConsultLinks();
+captcha.key = turnstileKey();
+setupGa4();
 renderEnvBanner(applyPrivacyLink());
+track("diagnosis_view", {});
 </script>
 </body>
 </html>

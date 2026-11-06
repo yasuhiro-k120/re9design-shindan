@@ -20,6 +20,21 @@
     // 無料診断（GitHub Pages）
     diagnosisUrl: "https://yasuhiro-k120.github.io/re9design-shindan/",
 
+    // アクセス解析（GA4）。測定 ID（G- で始まる）を入れると、無料診断のページで計測が始まる。空なら何も読み込まない
+    // ・入れる前に、プライバシーポリシーを GA4 を使う版に改定して公開しておく（公開前チェックで確かめる）
+    // ・テストモード（自分の PC・?mode=test など）では読み込まない
+    // ・Googleタグマネージャー（GTM）で同じイベントを送る場合は、ここを空にする（二重に数えないため）
+    analytics: {
+      ga4MeasurementId: ""
+    },
+
+    // スパム対策（Cloudflare Turnstile）。サイトキー（公開してよい値）を入れると、診断フォームに確認欄が出る
+    // ・秘密キーはここに書かない。GAS のスクリプト プロパティ TURNSTILE_SECRET に入れる
+    // ・Cloudflare の管理画面で、診断ページを置くドメインをこのウィジェットに登録しておく
+    turnstile: {
+      siteKey: ""
+    },
+
     privacyPolicy: {
       version: "2026-11-05",                  // 版（制定日 2026-11-04）。診断フォームの PRIVACY_NOTICE_VERSION と同じにする
       // 無料診断と同じ場所（GitHub Pages）に置く写し。privacy.html を一緒に載せたら true
@@ -27,8 +42,8 @@
       githubPagesPublished: true,
       // 公式サイト（WordPress）の固定ページ。予定の URL。公開して開けることを確かめたら true
       // （WordPress が /portfolio/ にあるあいだは、固定ページの URL は /portfolio/privacy-policy/ になる点に注意）
-      wordpressUrl: "https://re9design.net/privacy-policy/",
-      wordpressPublished: false
+      wordpressUrl: "https://re9design.net/portfolio/privacy-policy/",
+      wordpressPublished: true
     }
   };
   if (typeof module === "object" && module.exports) module.exports = SITE;
