@@ -25,7 +25,7 @@
     // ・テストモード（自分の PC・?mode=test など）では読み込まない
     // ・Googleタグマネージャー（GTM）で同じイベントを送る場合は、ここを空にする（二重に数えないため）
     analytics: {
-      ga4MeasurementId: ""
+      ga4MeasurementId: "G-ZPEX5Q84RC"
     },
 
     // スパム対策（Cloudflare Turnstile）。サイトキー（公開してよい値）を入れると、診断フォームに確認欄が出る
@@ -36,7 +36,7 @@
     },
 
     privacyPolicy: {
-      version: "2026-11-09",                  // 版（制定日 2026-11-04、改定 2026-11-05・2026-11-07・2026-11-09）。診断フォームの PRIVACY_NOTICE_VERSION と同じにする
+      version: "2026-11-09-2",                // 版（制定日 2026-11-04、改定 2026-11-05・2026-11-07・2026-11-09・2026-11-09-2）。診断フォームの PRIVACY_NOTICE_VERSION と同じにする
       // 無料診断と同じ場所（GitHub Pages）に置く写し。privacy.html を一緒に載せたら true
       githubPagesPath: "privacy.html",
       githubPagesPublished: true,

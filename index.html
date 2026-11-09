@@ -299,7 +299,7 @@ const CONFIG = {
   LINE_URL: "https://lin.ee/PcSNxLP",       // LINE公式アカウントの友だち追加URL
   TEST_GAS_URL: "",                         // テスト用デプロイのURL（任意・https）。空ならテストモードでは送信しない。本番URLと同じ値は無視する
   PRIVACY_URL: "",                          // 手動で上書きするときだけ入れる（https のみ）。ふだんは空にして site-config.js の設定を使う
-  PRIVACY_NOTICE_VERSION: "2026-11-09",     // 同意の記録に残す版。privacy.html の版・site-config.js の privacyPolicy.version と同じにする
+  PRIVACY_NOTICE_VERSION: "2026-11-09-2",     // 同意の記録に残す版。privacy.html の版・site-config.js の privacyPolicy.version と同じにする
   TIMEOUT_MS: 20000                          // 送信の応答を待つ時間
 };
 
@@ -445,6 +445,19 @@ function ga4Id() {
   return GA4_ID_PATTERN.test(id) ? id : "";
 }
 
+// URL の検索部分から UTM（utm_source・utm_medium・utm_campaign・utm_content・utm_term）だけを取り出す。値は英数字と - _ . だけ、64文字まで
+const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
+function utmQuery(search) {
+  let q;
+  try { q = new URLSearchParams(search || ""); } catch (e) { return ""; }
+  const out = [];
+  UTM_KEYS.forEach(k => {
+    const v = q.get(k);
+    if (v && /^[A-Za-z0-9._-]{1,64}$/.test(v)) out.push(k + "=" + v);
+  });
+  return out.length ? "?" + out.join("&") : "";
+}
+
 function setupGa4() {
   const id = ga4Id();
   if (!id || TEST_MODE) return "";
@@ -452,8 +465,9 @@ function setupGa4() {
   const gtag = function () { window.re9GtagLayer.push(arguments); };
   gtag("js", new Date());
   // 送るページの URL から、検索部分（?…）とページ内の位置（#…）を除く（念のため。個人情報は URL に載せていない）
+  // ただし流入元の印（utm_source などの UTM。Instagram・note のリンクに付ける）だけは残す。形の決まった短い値だけ
   const loc = window.location;
-  gtag("config", id, { page_location: loc.origin + loc.pathname, page_referrer: document.referrer ? document.referrer.split(/[?#]/)[0] : undefined });
+  gtag("config", id, { page_location: loc.origin + loc.pathname + utmQuery(loc.search), page_referrer: document.referrer ? document.referrer.split(/[?#]/)[0] : undefined });
   const sc = document.createElement("script");
   sc.async = true;
   sc.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(id) + "&l=re9GtagLayer";
