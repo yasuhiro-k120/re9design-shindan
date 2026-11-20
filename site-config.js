@@ -36,7 +36,7 @@
     },
 
     privacyPolicy: {
-      version: "2026-11-09-2",                // 版（制定日 2026-11-04、改定 2026-11-05・2026-11-07・2026-11-09・2026-11-09-2）。診断フォームの PRIVACY_NOTICE_VERSION と同じにする
+      version: "2026-11-19",                  // 版（制定日 2026-11-04、改定 2026-11-05・2026-11-07・2026-11-09・2026-11-09-2・2026-11-19）。診断フォームの PRIVACY_NOTICE_VERSION と同じにする
       // 無料診断と同じ場所（GitHub Pages）に置く写し。privacy.html を一緒に載せたら true
       githubPagesPath: "privacy.html",
       githubPagesPublished: true,
